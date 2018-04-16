@@ -1,0 +1,68 @@
+<%= render 'photos/errors', object: photo %>
+<%= form_for(photo) do |f| %>
+  <% if photo.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(photo.errors.count, "error") %> prohibited this photo from being saved:</h2>
+
+      <ul>
+      <% photo.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :image %>
+    <%= f.file_field :image %>
+    <%= f.hidden_field :image_cache %>
+    <% if photo.image? %>
+      <%= image_tag photo.image.thumb.url %>
+      <div>
+        <%= label_tag :remove_image do %>
+          Remove image
+          <%= f.check_box :remove_image %>
+        <% end %>
+    </div>
+    <% end %>
+    <%= f.text_field :remote_image_url %>
+    <small>Enter URL to an image</small>
+  </div>
+
+  <div class="field">
+    <%= f.label :attachments %>
+    <%= f.file_field :attachments, multiple: true %>
+</div>
+
+  <div class="field">
+    <%= f.label :views %>
+    <%= f.number_field :views %>
+  </div>
+
+  <div class="field">
+    <%= f.label :likes %>
+    <%= f.number_field :likes %>
+  </div>
+
+  <div class="field">
+    <%= f.label :downloads %>
+    <%= f.number_field :downloads %>
+  </div>
+
+  <h3>Tags</h3>
+  <div id="tags">
+    <%= f.fields_for :tags do |tag| %>
+      <%= render 'tag_fields', f: tag %>
+    <% end %>
+    <div class="links">
+      <%= link_to_add_association 'add tag', f, :tags %>
+    </div>
+  </div>
+
+  <%= hidden_field_tag :user_id, current_user.id %>
+
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

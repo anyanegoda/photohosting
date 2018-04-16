@@ -1,0 +1,22 @@
+<%# app/views/photos/_list.html.erb %>
+<div id="filterrific_results">
+
+  <table>
+    <tr>
+      <th>Image</th>
+      <th>Views</th>
+      <th>Likes</th>
+      <th>Downloads</th>
+      <th>Created at</th>
+    </tr>
+    <% photos.each do |photo| %>
+      <tr>
+        <td><%= photo.image %></td>
+        <td><%= photo.views %></td>
+        <td><%= photo.likes %></td>
+        <td><%= photo.downloads %></td>
+        <td><%= photo.created_at %></td>
+      </tr>
+    <% end %>
+  </table>
+</div>

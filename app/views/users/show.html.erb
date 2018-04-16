@@ -1,0 +1,46 @@
+
+
+<br><%= image_tag(@user.avatar.thumb.url, alt: 'Avatar') if @user.avatar? %>
+
+<br><%= @user.name %>
+<%= @user.surname %>
+<br><%= @user.description %>
+<br><h4>Фотографии(<%= @user.photos.count %>)</h4>
+
+<div id="accordeon">
+  <button class="btn-sort-view">
+    <%= 'Сортировать по' %>
+  </button><br>
+  <div class="btn-sort-items">
+    <button class="btn-sort" data-sort="views">
+      <%= 'Views' %>
+    </button>
+    <button class="btn-sort" data-sort="likes">
+      <%= 'Likes' %>
+    </button>
+    <button class="btn-sort" data-sort="downloads">
+      <%= "Downloads" %>
+    </button>
+    <button class="btn-sort" data-sort="date-asc">
+      <%= "Date asc" %>
+    </button>
+    <button class="btn-sort" data-sort="date-desc">
+      <%= "Date desc" %>
+    </button>
+    <button class="btn-sort" data-sort="all">
+      <%= "Сбросить" %>
+    </button>
+  </div>
+</div>
+<br>
+
+<div id="photos">
+  <% @user.photos.each do |photo| %>
+    <div class="photo">
+      <%= link_to(image_tag(photo.image.thumb.url, alt: 'Image'), photo, target: '_blank') if photo.image? %>
+    </div>
+  <% end %>
+</div>
+
+
+<br><%= link_to "show_index_of_users", users_path %>

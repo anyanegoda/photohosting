@@ -1,0 +1,42 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Photo url:</strong>
+  <%= @photo.image %>
+  <%= link_to(image_tag(@photo.image.big_thumb.url, alt: 'Image'), @photo.image.url, target: '_blank') if @photo.image? %>
+</p>
+
+<p>
+  <% if @photo.attachments? %>
+  <ul>
+    <% @photo.attachments.each do |attachment| %>
+      <li><%= link_to(image_tag(attachment.small_thumb.url, alt: 'Image'), attachment.url, target: '_blank') %></li>
+    <% end %>
+  </ul>
+<% end %>
+</p>
+
+<p>
+  <strong>Views:</strong>
+  <%= @photo.views %>
+</p>
+
+<p>
+  <strong>Likes:</strong>
+  <%= @photo.likes %>
+</p>
+
+<p>
+  <strong>Downloads:</strong>
+  <%= @photo.downloads %>
+</p>
+
+<p>
+  <strong>Tags:</strong>
+  <% @photo.tags.each do |tag| %>
+    <%= tag.tag %>
+  <% end %>
+</p>
+
+<%= link_to 'Edit', edit_photo_path(@photo) %> |
+<%= link_to 'Back', photos_path %>

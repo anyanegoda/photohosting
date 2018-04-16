@@ -1,0 +1,6 @@
+<div class="photo">
+  <%= link_to(image_tag(photo.image.thumb.url, alt: 'Image'), @photo, target: '_blank') if photo.image? %>
+  <% photo.tags.each do |tag| %>
+    <%= tag.tag %>
+  <% end %>
+</div>
