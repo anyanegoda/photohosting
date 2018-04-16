@@ -1,3 +1,9 @@
+GIT
+  remote: https://github.com/codahale/bcrypt-ruby.git
+  revision: f2db689ba567d1a018f4dacb1ccf909adc93e887
+  specs:
+    bcrypt (3.1.11)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -39,9 +45,8 @@ GEM
       minitest (~> 5.1)
       tzinfo (~> 1.1)
     arel (7.1.4)
-    autoprefixer-rails (8.2.0)
+    autoprefixer-rails (8.3.0)
       execjs
-    bcrypt (3.1.11-x64-mingw32)
     bindex (0.5.0)
     bootstrap (4.0.0)
       autoprefixer-rails (>= 6.0.3)
@@ -61,7 +66,7 @@ GEM
       execjs
     coffee-script-source (1.12.2)
     concurrent-ruby (1.0.5)
-    crass (1.0.3)
+    crass (1.0.4)
     devise (4.4.3)
       bcrypt (~> 3.0)
       orm_adapter (~> 0.1)
@@ -75,6 +80,10 @@ GEM
       activemodel (>= 3.0)
       mime-types (>= 1.0)
     filterrific (5.0.1)
+    font-awesome-rails (4.7.0.4)
+      railties (>= 3.2, < 6.0)
+    font-awesome-sass (5.0.9)
+      sass (>= 3.2)
     globalid (0.4.1)
       activesupport (>= 4.2.0)
     haml (5.0.4)
@@ -121,7 +130,7 @@ GEM
     orm_adapter (0.5.0)
     pg (1.0.0-x64-mingw32)
     popper_js (1.12.9)
-    puma (3.11.3)
+    puma (3.11.4)
     rack (2.0.4)
     rack-test (0.6.3)
       rack (>= 1.0)
@@ -177,18 +186,18 @@ GEM
     thor (0.20.0)
     thread_safe (0.3.6)
     tilt (2.0.8)
-    turbolinks (5.1.0)
+    turbolinks (5.1.1)
       turbolinks-source (~> 5.1)
     turbolinks-source (5.1.0)
     tzinfo (1.2.5)
       thread_safe (~> 0.1)
     tzinfo-data (1.2018.4)
       tzinfo (>= 1.0.0)
-    uglifier (4.1.8)
+    uglifier (4.1.9)
       execjs (>= 0.3.0, < 3)
     warden (1.2.7)
       rack (>= 1.0)
-    web-console (3.5.1)
+    web-console (3.6.0)
       actionview (>= 5.0)
       activemodel (>= 5.0)
       bindex (>= 0.4.0)
@@ -196,12 +205,15 @@ GEM
     websocket-driver (0.6.5)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.3)
+    wysiwyg-rails (2.8.0)
+      font-awesome-sass (>= 4.4.0)
+      railties (>= 3.2, < 6.0)
 
 PLATFORMS
   x64-mingw32
 
 DEPENDENCIES
-  bcrypt
+  bcrypt!
   bootstrap (~> 4.0.0)
   byebug
   carrierwave (~> 1.0)
@@ -210,6 +222,7 @@ DEPENDENCIES
   devise
   file_validators
   filterrific
+  font-awesome-rails
   haml
   jbuilder (~> 2.5)
   jquery-rails
@@ -223,6 +236,7 @@ DEPENDENCIES
   tzinfo-data
   uglifier (>= 1.3.0)
   web-console (>= 3.3.0)
+  wysiwyg-rails
 
 BUNDLED WITH
    1.16.1

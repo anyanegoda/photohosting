@@ -34,7 +34,9 @@ gem 'jbuilder', '~> 2.5'
 
 gem 'haml'
 gem 'devise'
-gem 'bcrypt', platforms: :ruby
+#gem 'bcrypt', platforms: :ruby
+#gem 'bcrypt', '~> 3.1.11' #, :require => 'bcrypt'
+gem 'bcrypt', git: 'https://github.com/codahale/bcrypt-ruby.git', :require => 'bcrypt'
 gem 'carrierwave', '~> 1.0'
 gem 'mini_magick'
 gem 'file_validators'
@@ -42,7 +44,8 @@ gem 'bootstrap', '~> 4.0.0'
 gem "cocoon"
 gem 'filterrific'
 gem 'kaminari'
-
+gem 'wysiwyg-rails'
+gem "font-awesome-rails"
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 

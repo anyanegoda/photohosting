@@ -17,3 +17,4 @@
 //= require bootstrap-sprockets
 //= require bootstrap
 //= require cocoon
+//= require froala_editor.min.js

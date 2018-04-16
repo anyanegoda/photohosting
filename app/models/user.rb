@@ -1,9 +1,10 @@
-require 'bcrypt'
+#require 'bcrypt'
 
 class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   has_many :photos, inverse_of: :user
+  has_many :collections
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable #, :confirmable
 

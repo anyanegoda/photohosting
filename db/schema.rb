@@ -10,10 +10,28 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180413191126) do
+ActiveRecord::Schema.define(version: 20180416184226) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "collections", force: :cascade do |t|
+    t.string   "name"
+    t.text     "description"
+    t.integer  "user_id"
+    t.integer  "photo_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.index ["photo_id"], name: "index_collections_on_photo_id", using: :btree
+    t.index ["user_id"], name: "index_collections_on_user_id", using: :btree
+  end
+
+  create_table "collections_photos", id: false, force: :cascade do |t|
+    t.integer "collection_id", null: false
+    t.integer "photo_id",      null: false
+    t.index ["collection_id"], name: "index_collections_photos_on_collection_id", using: :btree
+    t.index ["photo_id"], name: "index_collections_photos_on_photo_id", using: :btree
+  end
 
   create_table "photos", force: :cascade do |t|
     t.string   "image"
@@ -25,6 +43,14 @@ ActiveRecord::Schema.define(version: 20180413191126) do
     t.json     "attachments"
     t.integer  "user_id"
     t.index ["user_id"], name: "index_photos_on_user_id", using: :btree
+  end
+
+  create_table "posts", force: :cascade do |t|
+    t.string   "title"
+    t.string   "photo"
+    t.text     "body"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "tags", force: :cascade do |t|
@@ -61,6 +87,8 @@ ActiveRecord::Schema.define(version: 20180413191126) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   end
 
+  add_foreign_key "collections", "photos"
+  add_foreign_key "collections", "users"
   add_foreign_key "photos", "users"
   add_foreign_key "tags", "photos"
 end

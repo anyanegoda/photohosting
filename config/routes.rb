@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :posts
+  resources :collections
   resources :photos
   devise_for :users
   resources :users, :only => [:show, :index]

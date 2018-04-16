@@ -1,0 +1,39 @@
+<%= form_for(post) do |f| %>
+  <% if post.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(post.errors.count, "error") %> prohibited this post from being saved:</h2>
+
+      <ul>
+      <% post.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :title %>
+    <%= f.text_field :title %>
+  </div>
+
+  <div class="field">
+    <%= f.label :photo %>
+    <%= f.text_field :photo %>
+  </div>
+
+  <div class="field">
+    <%= f.label :body %>
+    <%= f.text_area :body, id: "wysiwyg" %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
+<script>
+  $('#wysiwyg').froalaEditor({
+    inlineMode: false,
+    heightMin: '200px',
+    toolbarButtons: ['bold', 'italic', 'underline', 'formatBlock','align', 'insertUnorderedList', 'insertOrderedList', 'outdent', 'indent', 'createLink', 'html'],
+  })
+</script>
