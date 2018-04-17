@@ -16,8 +16,13 @@
     <% @posts.each do |post| %>
       <tr>
         <td><%= post.title %></td>
-        <td><%= post.photo %></td>
-        <td><%= post.body %></td>
+        <td><%= link_to(image_tag(post.photo.thumb.url, alt: 'Image'), post, target: '_blank') if post.photo? %></td>
+        <td>
+          <div class="froala-view">
+            <%= simple_format(post.body, {}, sanitize: false) %>
+          </div>
+          <%= truncate(strip_tags(post.body), length: 80) %>
+        </td>
         <td><%= link_to 'Show', post %></td>
         <td><%= link_to 'Edit', edit_post_path(post) %></td>
         <td><%= link_to 'Destroy', post, method: :delete, data: { confirm: 'Are you sure?' } %></td>

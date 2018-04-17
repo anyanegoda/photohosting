@@ -1,0 +1,32 @@
+%p#notice= notice
+%p
+  %strong Title:
+  = @post.title
+%p
+  %strong Photo:
+  = image_tag(@post.photo.thumb.url, alt: 'Photo') if @post.photo?
+%p
+  %strong Body:
+.froala-view
+  = simple_format(@post.body, {}, sanitize: false)
+
+.row
+  - if user_signed_in?
+    .col-md-6
+      %textarea.form-control#comment_body
+      %input#post_id{ value: @post.id, hidden: true }
+      %input#author_id{ value: current_user.id, hidden: true }
+      %input#author_email{ value: current_user.email, hidden: true }
+      %input#author_avatar{ value: current_user.avatar, hidden: true }
+      %button.btn.btn-my.mt-10.create_comment= 'Добавить комментарий'
+  - else
+    .col-md-6
+      %p
+        ='Чтобы оставлять комментарии'
+        %a= link_to 'Войдите', new_user_session_path
+        ='либо'
+        %a= link_to 'Зарегистрируйтесь', new_user_registration_path
+
+= link_to 'Edit', edit_post_path(@post)
+|
+= link_to 'Back', posts_path

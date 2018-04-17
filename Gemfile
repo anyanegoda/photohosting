@@ -46,6 +46,9 @@ gem 'filterrific'
 gem 'kaminari'
 gem 'wysiwyg-rails'
 gem "font-awesome-rails"
+gem 'simple_form'
+gem "responders"
+gem 'acts_as_votable'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 

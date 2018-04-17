@@ -18,7 +18,11 @@
 
   <div class="field">
     <%= f.label :photo %>
-    <%= f.text_field :photo %>
+    <%= f.file_field :photo %>
+    <%= f.hidden_field :photo_cache %>
+    <% if @post.photo? %>
+      <%= image_tag post.photo.thumb.url %>
+    <% end %>
   </div>
 
   <div class="field">
@@ -34,6 +38,5 @@
   $('#wysiwyg').froalaEditor({
     inlineMode: false,
     heightMin: '200px',
-    toolbarButtons: ['bold', 'italic', 'underline', 'formatBlock','align', 'insertUnorderedList', 'insertOrderedList', 'outdent', 'indent', 'createLink', 'html'],
   })
 </script>

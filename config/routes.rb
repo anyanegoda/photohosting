@@ -1,7 +1,13 @@
 Rails.application.routes.draw do
-  resources :posts
+  resources :posts do
+      resources :comments, except: ['index','new']
+  end
   resources :collections
-  resources :photos
+  resources :photos do
+    member do
+      put "like" => "photos#vote"
+    end
+  end
   devise_for :users
   resources :users, :only => [:show, :index]
   match 'index', to: 'photos#index', via: :all
