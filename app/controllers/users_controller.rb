@@ -1,5 +1,4 @@
 class UsersController < ApplicationController
-  before_action :authenticate_user!, only: [:new, :edit, :update, :destroy]
   before_action :set_user, only: [:update, :destroy]
 
   def show
@@ -35,7 +34,11 @@ class UsersController < ApplicationController
   end
 
   def update
-    @user.update(user_params)
+    #@user.update(user_params)
+    @user = User.find(params[:id])
+    @user.toggle!(:admin)
+    flash[:success] = 'OK!'
+    redirect_to root_path
   end
 
   def destroy

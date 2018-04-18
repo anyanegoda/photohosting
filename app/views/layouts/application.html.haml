@@ -17,4 +17,10 @@
       - else
         = link_to 'Войти', new_user_session_path
         = link_to 'Зарегистрироваться', new_user_registration_path
+      - if current_user
+        .well.well-sm
+          Admin:
+          %strong= current_user.admin?
+          %br/
+          = link_to 'Toggle admin rights', user_path(current_user), method: :patch, class: 'btn btn-info'
       = yield

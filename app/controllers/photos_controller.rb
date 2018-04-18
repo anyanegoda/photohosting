@@ -1,4 +1,5 @@
 class PhotosController < ApplicationController
+  before_action :authenticate_user!, except: [:index, :show]
   before_action :set_photo, only: [:show, :edit, :update, :destroy, :vote]
   respond_to :js, :json, :html
 
@@ -8,26 +9,26 @@ class PhotosController < ApplicationController
     @sort = params[:sort]
     if (@sort)
       if @sort == "views"
-        @photos = Photo.order("views DESC").page(params[:page])
+        @photos = Photo.order("views DESC")
       elsif
         @sort == "likes"
-          @photos = Photo.order("likes DESC").page(params[:page])
+          @photos = Photo.order("likes DESC")
       elsif
         @sort == "downloads"
-          @photos = Photo.order("downloads DESC").page(params[:page])
+          @photos = Photo.order("downloads DESC")
       elsif
         @sort == "date-asc"
-          @photos = Photo.order("created_at ASC").page(params[:page])
+          @photos = Photo.order("created_at ASC")
       elsif
         @sort == "date-desc"
-          @photos = Photo.order("created_at DESC").page(params[:page])
+          @photos = Photo.order("created_at DESC")
       elsif
         @sort == "all"
-          @photos = Photo.order("id ASC").page(params[:page])
+          @photos = Photo.order("id ASC")
       end
     render json: { photos: @photos }
     else
-      @photos = Photo.all.page params[:page]
+      @photos = Photo.order("id ASC")
     end
 
     @users = User.all
@@ -83,6 +84,7 @@ class PhotosController < ApplicationController
   # DELETE /photos/1
   # DELETE /photos/1.json
   def destroy
+    authorize @photo
     @photo.destroy
     respond_to do |format|
       format.html { redirect_to photos_url, notice: 'Photo was successfully destroyed.' }

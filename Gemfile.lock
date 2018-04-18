@@ -49,10 +49,9 @@ GEM
     autoprefixer-rails (8.3.0)
       execjs
     bindex (0.5.0)
-    bootstrap (4.0.0)
-      autoprefixer-rails (>= 6.0.3)
-      popper_js (>= 1.12.9, < 2)
-      sass (>= 3.5.2)
+    bootstrap-sass (3.3.7)
+      autoprefixer-rails (>= 5.2.1)
+      sass (>= 3.3.4)
     builder (3.2.3)
     carrierwave (1.2.2)
       activemodel (>= 4.0.0)
@@ -131,13 +130,14 @@ GEM
       mini_portile2 (~> 2.3.0)
     orm_adapter (0.5.0)
     pg (1.0.0-x64-mingw32)
-    popper_js (1.12.9)
     pry (0.11.3)
       coderay (~> 1.1.0)
       method_source (~> 0.9.0)
     pry-rails (0.3.6)
       pry (>= 0.10.4)
     puma (3.11.4)
+    pundit (1.1.0)
+      activesupport (>= 3.0.0)
     rack (2.0.4)
     rack-test (0.6.3)
       rack (>= 1.0)
@@ -225,7 +225,7 @@ PLATFORMS
 DEPENDENCIES
   acts_as_votable
   bcrypt!
-  bootstrap (~> 4.0.0)
+  bootstrap-sass
   byebug
   carrierwave (~> 1.0)
   cocoon
@@ -242,6 +242,7 @@ DEPENDENCIES
   pg
   pry-rails
   puma (~> 3.0)
+  pundit
   rails (~> 5.0.7)
   responders
   sass-rails (~> 5.0)

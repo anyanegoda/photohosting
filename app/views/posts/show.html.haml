@@ -35,9 +35,9 @@
         %a.list-group-item
           .comment_author
             - if comment.user.avatar?
-              =image_tag(comment.user.avatar.url, class: 'img-circle')
+              =image_tag(comment.user.avatar.thumb.url, class: 'img-circle')
             - else
-              =image_tag(comment.user.avatar.url, class: 'img-circle', size: 50)
+              =image_tag(comment.user.avatar/thumb.url, class: 'img-circle', size: 50)
             %span
               = comment.user.name
               = comment.user.surname
