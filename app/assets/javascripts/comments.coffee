@@ -6,7 +6,6 @@ $ ->
     post_id = $('#post_id').val()
     user_id = $('#author_id').val()
     comment_body = $('#comment_body').val()
-    debugger
     $.ajax
       type: 'POST'
       url: "#{post_id}/comments"

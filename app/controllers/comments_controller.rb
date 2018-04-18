@@ -1,6 +1,6 @@
 class CommentsController < ApplicationController
   before_action :set_comment, only: [:show, :edit, :update, :destroy]
-
+  before_action :set_post
   respond_to :json, only: [:create, :destroy, :update]
 
   # GET /comments/1
@@ -16,8 +16,7 @@ class CommentsController < ApplicationController
   # POST /comments.json
   def create
     @comment = @post.comments.create(comment_params)
-    binding.pry
-    render json: { comment: @comment}
+    render json: { comment: @comment, created_at: I18n.l(@comment.created_at, format: :short) }
   end
 
   # PATCH/PUT /comments/1

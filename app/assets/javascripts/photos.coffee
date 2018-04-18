@@ -7,6 +7,7 @@ $ ->
     $('#accordeon .btn-sort-items').not($(this).next()).slideUp 1000
     # открываем или скрываем блок под заголовоком, по которому кликнули
     $(this).next().slideToggle 1000
+    #
 
   $(document).ready ->
     #прикрепляем клик по заголовкам acc-head
@@ -24,7 +25,6 @@ $ ->
         data.photos
         $('.photo').remove()
         $.each data.photos, (index, value) ->
-          debugger
           $('#photos').append("
             <div class='photo'>
               <p>#{value.views}</p>

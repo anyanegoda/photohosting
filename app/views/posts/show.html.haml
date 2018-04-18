@@ -27,6 +27,28 @@
         ='либо'
         %a= link_to 'Зарегистрируйтесь', new_user_registration_path
 
+  .list-group.comments
+    %a.list-group-item.active
+      = 'Комментарии:'
+    - if @post.comments.any?
+      - @post.comments.each do |comment|
+        %a.list-group-item
+          .comment_author
+            - if comment.user.avatar?
+              =image_tag(comment.user.avatar.url, class: 'img-circle')
+            - else
+              =image_tag(comment.user.avatar.url, class: 'img-circle', size: 50)
+            %span
+              = comment.user.name
+              = comment.user.surname
+            %span.comment-date
+              = I18n.l(comment.created_at, format: :short)
+          %textarea.body_edit{hidden: true}
+          %pre.comment_body.inline{ id: "comment_body_#{comment.id}"}= comment.body
+          %input.comment_id{ value: comment.id, hidden: true }
+    - else
+      %h4.no-comment= 'Ещё никто не оставил комментарий. Будьте первым!'
+
 = link_to 'Edit', edit_post_path(@post)
 |
 = link_to 'Back', posts_path
