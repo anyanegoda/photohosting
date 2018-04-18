@@ -7,6 +7,7 @@ $ ->
     $('#accordeon .btn-sort-items').not($(this).next()).slideUp 1000
     # открываем или скрываем блок под заголовоком, по которому кликнули
     $(this).next().slideToggle 1000
+    #
 
   $(document).ready ->
     #прикрепляем клик по заголовкам acc-head
