@@ -10,8 +10,8 @@
 <div id="accordeon">
   <button class="btn-sort-view">
     <%= 'Сортировать по' %>
-  </button><br>
-  <div class="btn-sort-items">
+  </button>
+  <div class="btn-sort-items" data-user-id="<%= @user.id %>">
     <button class="btn-sort" data-sort="views">
       <%= 'Views' %>
     </button>

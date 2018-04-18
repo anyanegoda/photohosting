@@ -24,7 +24,6 @@ $ ->
         data.photos
         $('.photo').remove()
         $.each data.photos, (index, value) ->
-          debugger
           $('#photos').append("
             <div class='photo'>
               <p>#{value.views}</p>
