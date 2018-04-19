@@ -50,6 +50,8 @@
   <% end %>
 </p>
 
+<%= social_share_button_tag(@photo.image) %>
+
 <p>
   <button type='button' id='create-collection' data-photo-id="<%= @photo.id %>">
     Create Collection

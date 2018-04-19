@@ -43,3 +43,4 @@
 //= require plugins/table.min
 //= require plugins/url.min
 //= require plugins/video.min
+//= require social-share-button
