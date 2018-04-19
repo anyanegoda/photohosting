@@ -45,6 +45,25 @@
     <%= tag.tag %>
   <% end %>
 </p>
+
+<p>
+  <button type='button' id='create-collection' data-photo-id="<%= @photo.id %>">
+    Create Collection
+  </button>
+  <div id='new-collection-modal'>
+    <label for='collection-title'>Название коллекции</label>
+    <input type='text' id='collection-title' placeholder='Название коллекции'>
+    <textarea id='collection-description' placeholder='Введите описание коллекции'></textarea>
+    <button id='save-collection' type='button'>Сохранить</button>
+    <button id='back-to-collections' type='button'>Назад</button>
+  </div>
+  <div id='created-collections'>
+    <% current_user.collections.each do |collection| %>
+      <button type='button' class='choose-collection' data-collection-id="<%= collection.id %>"><%= collection.name %></button>
+    <% end %>
+  </div>
+</p>
+
 <% if user_signed_in? %>
   <%= link_to 'Edit', edit_photo_path(@photo) %> |
 <% end %>

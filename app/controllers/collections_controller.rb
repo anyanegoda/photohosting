@@ -1,7 +1,7 @@
 class CollectionsController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show]
   before_action :set_collection, only: [:show, :edit, :update, :destroy]
-
+  respond_to :json, only: [:create, :destroy, :update]
   # GET /collections
   # GET /collections.json
   def index
@@ -25,17 +25,8 @@ class CollectionsController < ApplicationController
   # POST /collections
   # POST /collections.json
   def create
-    @collection = Collection.new(collection_params)
-
-    respond_to do |format|
-      if @collection.save
-        format.html { redirect_to @collection, notice: 'Collection was successfully created.' }
-        format.json { render :show, status: :created, location: @collection }
-      else
-        format.html { render :new }
-        format.json { render json: @collection.errors, status: :unprocessable_entity }
-      end
-    end
+    @collection = Collection.create(collection_params)
+    render json: { collection_id: @collection.id }
   end
 
   # PATCH/PUT /collections/1
@@ -70,6 +61,6 @@ class CollectionsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def collection_params
-      params.require(:collection).permit(:name, :description)
+      params.require(:collection).permit(:name, :description).merge(user_id: current_user.id)
     end
 end
