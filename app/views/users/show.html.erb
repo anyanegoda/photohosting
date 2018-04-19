@@ -42,5 +42,20 @@
   <% end %>
 </div>
 
+<div id='collections'>
+  <h3>Collection Testing</h3>
+  <% @user.collections.each do |collection| %>
+    <%= link_to(collection.name, collection, target: '_blank') %>
+  <% end %>
+
+  <h3>Collection Photo Testing</h3>
+  <% @user.collections.each do |collection| %>
+    <h4><%= collection.name %></h4>
+    <% collection.photos.each do |photo| %>
+      <%= image_tag(photo.image.thumb.url, alt: 'Image') %>
+    <% end %>
+  <% end %>
+
+</div>
 
 <br><%= link_to "show_index_of_users", users_path %>

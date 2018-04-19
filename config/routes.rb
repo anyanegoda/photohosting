@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  post 'collections_photos/create'
+  get 'collections_photos/delete'
+
   resources :posts do
       resources :comments, except: ['index','new']
   end
