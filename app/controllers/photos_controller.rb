@@ -1,7 +1,7 @@
 class PhotosController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show]
   before_action :set_photo, only: [:show, :edit, :update, :destroy, :vote]
-  before_action :authorize_photo, except: [:index, :show, :new, :create, :vote]
+  before_action :authorize_photo, except: [:index, :show, :new, :create, :vote, :download]
   respond_to :js, :json, :html
 
   # GET /photos
@@ -97,6 +97,13 @@ class PhotosController < ApplicationController
     elsif current_user.liked? @photo
       @photo.unliked_by current_user
     end
+  end
+
+  def download
+    @photo = Photo.find(params[:photo_id])
+    downloads = @photo.downloads += 1
+    @photo.update_attribute "downloads", downloads
+    render json: { downloads: @photo.downloads }
   end
 
   private

@@ -34,10 +34,14 @@
     </div>
   <% end %>
 <% end %>
-<p>
+<div class="download">
   <strong>Downloads:</strong>
-  <%= @photo.downloads %>
+  <div class="download-item"><p><%= @photo.downloads %></p></div>
 </p>
+
+
+
+<a id="download-count" data-photo-id="<%= @photo.id %>" href='<%=@photo.image %>' download="">download me</a>
 
 <p>
   <strong>Tags:</strong>
