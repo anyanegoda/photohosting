@@ -42,6 +42,7 @@
       <% photo.tags.each do |tag| %>
         <%= tag.tag %>
       <% end %>
+      <%= link_to 'Destroy', photo, method: :delete, data: { confirm: 'Are you sure?' } %>
     </div>
   <% end %>
 </div>

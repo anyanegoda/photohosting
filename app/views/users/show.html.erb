@@ -5,6 +5,12 @@
 <br><%= @user.name %>
 <%= @user.surname %>
 <br><%= @user.description %>
+<% if policy(@user).edit? %>
+  <%= link_to 'Edit',  edit_user_registration_path(@user) %>
+<% end %>
+<% if policy(@user).destroy? %>
+  <%= link_to 'Destroy', @user, method: :delete, data: { confirm: 'Are you sure?' } %>
+<% end %>
 <br><h4>Фотографии(<%= @user.photos.count %>)</h4>
 
 <div id="accordeon">

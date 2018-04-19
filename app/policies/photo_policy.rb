@@ -1,5 +1,21 @@
 class PhotoPolicy < ApplicationPolicy
-  def destroy?
-    user.admin?
+  attr_reader :current_user, :photo
+
+  def initialize(current_user, photo)
+    @current_user = current_user
+    @photo = photo
   end
+
+  def create?
+    @current_user&.admin?
+  end
+
+  def update?
+    @current_user&.admin? || @current_user.id == @photo.user_id
+  end
+
+  def destroy?
+    @current_user&.admin? || @current_user.id == @photo.user_id
+  end
+
 end

@@ -7,8 +7,13 @@
   <% user.photos.each do |photo| %>
     <%= link_to(image_tag(photo.image.small_user_thumb.url, alt: 'Image'), photo, target: '_blank') if photo.image? %>
   <% end %>
-  </%>
   <br>
+  <% if policy(user).destroy? %>
+    <%= link_to 'Destroy', user, method: :delete, data: { confirm: 'Are you sure?' } %>
+  <% end %>
+  <% if policy(user).edit? %>
+    <%= link_to 'Edit',  edit_user_registration_path(@user) %> |
+  <% end %>
 <% end %>
 
 

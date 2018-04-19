@@ -1,6 +1,7 @@
 class PhotosController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show]
   before_action :set_photo, only: [:show, :edit, :update, :destroy, :vote]
+  before_action :authorize_photo, except: [:index, :show, :new, :create, :vote]
   respond_to :js, :json, :html
 
   # GET /photos
@@ -30,7 +31,6 @@ class PhotosController < ApplicationController
     else
       @photos = Photo.order("id ASC")
     end
-
     @users = User.all
   end
 
@@ -84,7 +84,6 @@ class PhotosController < ApplicationController
   # DELETE /photos/1
   # DELETE /photos/1.json
   def destroy
-    authorize @photo
     @photo.destroy
     respond_to do |format|
       format.html { redirect_to photos_url, notice: 'Photo was successfully destroyed.' }
@@ -101,6 +100,10 @@ class PhotosController < ApplicationController
   end
 
   private
+
+    def authorize_photo
+      authorize @photo
+    end
     # Use callbacks to share common setup or constraints between actions.
     def set_photo
       @photo = Photo.find(params[:id])

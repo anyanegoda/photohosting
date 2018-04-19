@@ -26,7 +26,7 @@
         %a= link_to 'Войдите', new_user_session_path
         ='либо'
         %a= link_to 'Зарегистрируйтесь', new_user_registration_path
-
+.row
   .list-group.comments
     %a.list-group-item.active
       = 'Комментарии:'
@@ -46,9 +46,13 @@
           %textarea.body_edit{hidden: true}
           %pre.comment_body.inline{ id: "comment_body_#{comment.id}"}= comment.body
           %input.comment_id{ value: comment.id, hidden: true }
+          - if policy(comment).destroy?
+            %button.btn.btn-default.delete_comment.glyphicon.glyphicon-trash.icon.red.float-right
+          - if policy(comment).edit?
+            %button.btn.btn-default.edit_comment.glyphicon.glyphicon-pencil.icon.float-right
     - else
       %h4.no-comment= 'Ещё никто не оставил комментарий. Будьте первым!'
-
-= link_to 'Edit', edit_post_path(@post)
+- if policy(@post).edit?
+  = link_to 'Edit', edit_post_path(@post)
 |
 = link_to 'Back', posts_path
