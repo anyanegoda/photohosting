@@ -55,6 +55,7 @@ gem 'pry-rails', :group => :development
 gem "pundit"
 gem 'bootstrap-sass'
 gem 'searchkick'
+gem 'social-share-button'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 

@@ -10,11 +10,4 @@ class Photo < ApplicationRecord
   #paginates_per 6
   searchkick word_start: [:tag]
 
- def search_data
-   {
-     title: title,
-     year: year,
-     plot: plot
-   }
- end
 end
