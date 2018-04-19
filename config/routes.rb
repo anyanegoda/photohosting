@@ -15,6 +15,7 @@ Rails.application.routes.draw do
   resources :users, :only => [:show, :index]
   match 'index', to: 'photos#index', via: :all
   match 'users/:id', to: 'users#show', via: :all
+  post 'photos/download'
   root to: 'photos#index'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

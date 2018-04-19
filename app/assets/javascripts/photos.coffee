@@ -72,3 +72,16 @@ $ ->
         alert('Фото успешно добавлено в коллекцию')
       error: ->
         alert('Не удалось добавить фото')
+
+  $('#download-count').on 'click', ->
+    photo_id = $('#download-count').data 'photo-id'
+    $.ajax
+      url: '/photos/download'
+      type: "POST"
+      data: { photo_id: photo_id }
+      success: (data) ->
+        d = data.downloads
+        debugger
+        $('.download-item').html data.downloads
+      error: ->
+        alert('Не удалось загрузить изображение.')
