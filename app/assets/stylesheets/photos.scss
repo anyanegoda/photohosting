@@ -1,11 +1,28 @@
 // Place all the styles related to the Photos controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+html::-webkit-scrollbar {
+    width: 20px;
+}
+
+html::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px #1f74fb;
+    border-left: solid 10px transparent;
+}
+
+html::-webkit-scrollbar-thumb {
+  background: linear-gradient(to right, transparent 0%, transparent 50%, #1f74fb 50%, #1f74fb 100%);
+}
+
 #photos {
   display: flex;
   justify-content: space-between;
   align-items: center;
   flex-flow: row wrap;
+}
+
+button:focus{
+  outline: none;
 }
 
 .photo {
@@ -22,5 +39,240 @@
 }
 
 #new-collection-modal{
+  z-index: -999;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: white;
+  -webkit-transition: z-index 0.5s step-end, opacity 0.5s linear;
+  transition: z-index 0.5s step-end, opacity 0.5s linear;
+  opacity: 0;
+  padding: 15px;
+}
+
+#new-collection-modal.visible{
+  z-index: 6;
+  opacity: 1;
+  -webkit-transition: z-index 0.5s step-start, opacity 0.5s linear;
+  transition: z-index 0.5s step-start, opacity 0.5s linear;
+}
+
+#collection-title, #collection-description{
+  width: 100%;
+  margin-bottom: 15px;
+}
+
+.collection-actions{
+  margin-top: 30px;
+  display: flex;
+  justify-content: space-between;
+}
+
+#save-collection{
+  border-radius: 5px;
+  color: white;
+  background-color: black;
+  transition: color 0.3s ease;
+  border: none;
+  padding: 10px 20px;
+  &:hover{
+    background-color: #1f74fb;
+  }
+}
+
+#back-to-collections{
+  background-color: transparent;
+  text-decoration: underline;
+  border: none;
+}
+
+#add-to-collection{
+  z-index: -999;
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0,0,0,0.7);
+  opacity: 0;
+  -webkit-transition: z-index 0.5s step-end, opacity 0.5s linear;
+  transition: z-index 0.5s step-end, opacity 0.5s linear;
+}
+
+#add-to-collection.visible{
+  z-index: 5;
+  opacity: 1;
+  -webkit-transition: z-index 0.5s step-start, opacity 0.5s linear;
+  transition: z-index 0.5s step-start, opacity 0.5s linear;
+}
+
+#open-collection-modal{
+  border: 1px solid #1f74fb;
+  font-weight: bold;
+  padding: 5px 10px;
+  background: linear-gradient(to left, transparent 50%, #1f74fb 50%);
+  background-size: 200% 100%;
+  background-position: right bottom;
+  transition:all 1s ease;
+  .icon{
+    margin-right: 5px;
+  }
+  &:hover{
+    color: white;
+    //background-color: #1f74fb;
+    background-position: left bottom;
+  }
+}
+
+#create-collection{
+  background-color: transparent;
+}
+
+.add-to-collection-wrapper{
+  width: 70%;
+  height: 80%;
+  position: relative;
+  display: flex;
+  background-color: white;
+}
+
+.add-to-collection-image{
+  width: 40%;
+  img {
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+  }
+}
+
+.add-to-collection-text{
+  width: 60%;
+  padding: 15px 30px;
+  position: relative;
+}
+.collection-container{
+  overflow-y: auto;
+  height: 79%;
+  margin-top: 15px;
+}
+
+.collection-container::-webkit-scrollbar {
+    width: 20px;
+}
+
+.collection-container::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px #1f74fb;
+    border-left: solid 10px transparent;
+}
+
+.collection-container::-webkit-scrollbar-thumb {
+  background: linear-gradient(to right, transparent 0%, transparent 50%, #1f74fb 50%, #1f74fb 100%);
+}
+
+.close-modal{
+  position: absolute;
+  top: 20px;
+  right: 0px;
+  transform: translate(-50%,-50%);
+  z-index: 3;
+  color: #1f74fb;
+}
+
+.custom-header{
+  margin-bottom: 15px;
+}
+
+.add-to-collection{
+  width: 100%;
+  font-size: 1.5em;
+  border-radius: 5px;
+  background-color: #bbb;
+  border: 3px dashed #1f74fb;
+  color: #6d6d6d;
+  min-height: 80px;
+  margin-bottom: 15px;
+  text-align: left;
+  padding-left: 5%;
+}
+
+.add-to-collection:last-of-type{
+  margin-bottom: 0;
+}
+
+.choose-collection{
+  color: white;
+  position: relative;
+  border: none;
+}
+
+.collection-sign{
+  position: absolute;
+  top: 50%;
+  right: 15px;
+  transform: translate(-50%,-50%);
+}
+
+.collection-overlay{
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  border-radius: 5px;
+  background-color: #1f74fb;
+  opacity: 0.5;
   display: none;
+}
+
+.collection-overlay.visible{
+  display: block;
+}
+.choose-collection-text{
+  position: relative;
+}
+.alert{
+  position: fixed;
+  top: 10px;
+  z-index: 10;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+@media only screen and (max-width: 1400px){
+  .collection-container{
+    height: 73%;
+  }
+}
+
+@media only screen and (max-width: 1024px){
+  .add-to-collection-wrapper{
+    width: 90%;
+    height: 90%;
+  }
+  .add-to-collection-text{
+    padding: 15px;
+  }
+  .collection-container{
+    height: 85%;
+  }
+}
+
+@media only screen and (max-width: 767px){
+  .add-to-collection-image{
+    display: none;
+  }
+  .add-to-collection-text{
+    width: 100%;
+  }
+  .collection-container{
+    height: 73%;
+  }
+  .alert{
+    width: 75%;
+  }
 }

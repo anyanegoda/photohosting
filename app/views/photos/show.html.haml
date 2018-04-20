@@ -1,4 +1,52 @@
 %p#notice= notice
+%button#open-collection-modal{type: "button"}
+  = image_tag("add_to_gallery.png", alt: 'Add To Gallery', class: "icon")
+    \В коллекцию
+#add-to-collection
+  .add-to-collection-wrapper
+    .add-to-collection-image
+      = image_tag(@photo.image.big_thumb.url, alt: 'Image')
+    .add-to-collection-text
+      %span.close-modal= fa_icon "times 2x"
+    %h3.custom-header Добавить в коллекцию
+    %button#create-collection.add-to-collection{"data-photo-id" => @photo.id, "data-current-image" => @photo.image.big_thumb.url, type: "button"}
+      \Создать новую коллекцию
+  #new-collection-modal
+    %span.close-modal= fa_icon "times 2x"
+  %h3.custom-header Создать новую коллекцию
+  %label{for: "collection-title"} Название коллекции
+  %input#collection-title{placeholder: "Название коллекции", type: "text"}
+    %p Описание (необязательно)
+    %textarea#collection-description{placeholder: "Введите описание коллекции", rows: "10"}
+    .collection-actions
+      %button#back-to-collections{type: "button"} Отмена
+      %button#save-collection{type: "button"} Создать коллекцию
+  - if current_user.collections
+    .collection-container
+      - current_user.collections.order({ created_at: :desc }).each do |collection|
+        - flag = collection.photos.any?{|a| a.id == @photo.id
+        - if collection.photos.size > 0
+          %button.add-to-collection.choose-collection{type: "button",
+          'data-collection-id' => collection.id,
+          'data-current-image' => @photo.image.big_thumb.url,
+          'data-last-image' => (flag ? collection.photos.last(2)[0].image.big_thumb.url : collection.photos.last.image.big_thumb.url)
+          style: (flag ? "background: url('#{@photo.image.big_thumb.url}') center" : "url('#{collection.photos.last.image.big_thumb.url}') center")
+          class: ("remove-from-collection" if flag)
+          }
+        - else
+          %button.add-to-collection.choose-collection{type: "button",
+          'data-collection-id' => collection.id,
+          'data-current-image' => @photo.image.big_thumb.url,
+          class: ("remove-from-collection" if flag)
+          }
+        .collection-overlay{hidden: ("hidden" if flag)}
+      .choose-collection-text
+        %p.photo-count
+          = collection.photos.length
+          \фото
+        %span.collection-plus.collection-sign{hidden: ("hidden" if flag)}= fa_icon 'plus'
+        %span.collection-minus.collection-sign= fa_icon 'minus'
+        %span= collection.name
 %p
   %strong Photo url:
   = @photo.image
