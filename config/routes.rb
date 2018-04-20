@@ -5,8 +5,7 @@ Rails.application.routes.draw do
 
   resources :photos_comments
   post 'collections_photos/create'
-  get 'collections_photos/delete'
-  #get 'tags/index', as: 'search'
+  post 'collections_photos/delete'
 
   resources :posts do
       resources :comments, except: ['index','new']

@@ -6,6 +6,11 @@ class CollectionsPhotosController < ApplicationController
   end
 
   def delete
+    photo = Photo.find(params[:photo_id])
+    collection = photo.collections.find(params[:collection_id])
+    if collection
+      photo.collections.delete(collection)
+    end
   end
 
   private

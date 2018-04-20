@@ -25,8 +25,13 @@ class CollectionsController < ApplicationController
   # POST /collections
   # POST /collections.json
   def create
-    @collection = Collection.create(collection_params)
-    render json: { collection_id: @collection.id }
+    @collections = current_user.collections
+    if @collections.any?{|a| a.name == params[:collection][:name]}
+      render json: { error: 'Коллекция с таким именем уже существует.'},status: 422
+    else
+      @collection = Collection.create(collection_params)
+      render json: { collection_id: @collection.id }
+    end
   end
 
   # PATCH/PUT /collections/1
