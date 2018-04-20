@@ -7,10 +7,10 @@ class CommentPolicy < ApplicationPolicy
   end
 
   def update?
-      @current_user&.admin? || @comment.user_id == @current_user.id
+    @current_user&.admin? || @comment.user_id == @current_user.id
   end
 
   def destroy?
-        @current_user&.admin? || @comment.user_id == @current_user.id
+    @current_user&.admin? || @comment.user_id == @current_user.id
   end
 end
