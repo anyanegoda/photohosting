@@ -1,0 +1,46 @@
+%br/
+= image_tag(@user.avatar.thumb.url, alt: 'Avatar') if @user.avatar?
+%br/
+= @user.name
+= @user.surname
+%br/
+= @user.description
+- if policy(@user).edit?
+  = link_to 'Edit',  edit_user_registration_path(@user)
+- if policy(@user).destroy?
+  = link_to 'Destroy', @user, method: :delete, data: { confirm: 'Are you sure?' }
+%br/
+%h4
+  Фотографии(#{@user.photos.count})
+#accordeon
+  %button.btn-sort-view
+    = 'Сортировать по'
+  .btn-sort-items{"data-user-id" => @user.id}
+    %button.btn-sort{"data-sort" => "views"}
+      = 'Views'
+    %button.btn-sort{"data-sort" => "likes"}
+      = 'Likes'
+    %button.btn-sort{"data-sort" => "downloads"}
+      = "Downloads"
+    %button.btn-sort{"data-sort" => "date-asc"}
+      = "Date asc"
+    %button.btn-sort{"data-sort" => "date-desc"}
+      = "Date desc"
+    %button.btn-sort{"data-sort" => "all"}
+      = "Сбросить"
+%br/
+#photos
+  - @user.photos.each do |photo|
+    .photo
+      = link_to(image_tag(photo.image.thumb.url, alt: 'Image'), photo, target: '_blank') if photo.image?
+#collections
+  %h3 Collection Testing
+  - @user.collections.each do |collection|
+    = link_to(collection.name, collection, target: '_blank')
+  %h3 Collection Photo Testing
+  - @user.collections.each do |collection|
+    %h4= collection.name
+    - collection.photos.each do |photo|
+      = image_tag(photo.image.thumb.url, alt: 'Image')
+%br/
+= link_to "show_index_of_users", users_path

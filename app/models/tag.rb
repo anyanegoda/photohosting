@@ -3,9 +3,9 @@ class Tag < ApplicationRecord
 
   def self.search(term)
     if term
-      where('tag LIKE ?', "%#{term}%").order('id DESC')
+      where('tag LIKE ?', "%#{term}%")
     else
-      order('id DESC')
+      all
     end
   end
 end

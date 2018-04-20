@@ -1,5 +1,6 @@
 class TagsController < ApplicationController
   def index
-    @tags = Tag.search(params[:term])
+    @tags = Tag.search(params[:term]).order("id ASC")
+    #binding.pry
   end
 end
