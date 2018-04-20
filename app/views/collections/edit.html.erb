@@ -1,6 +1,7 @@
-<h1>Editing Collection</h1>
+<h1>Редактирование коллекции</h1>
 
 <%= render 'form', collection: @collection %>
 
-<%= link_to 'Show', @collection %> |
-<%= link_to 'Back', collections_path %>
+<%= link_to 'Удалить', @collection, method: :delete, data: { confirm: 'Вы уверены?' } %>
+<%= link_to 'Просмотр', @collection %> |
+<%= link_to 'Назад', collections_path %>

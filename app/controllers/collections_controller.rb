@@ -1,6 +1,7 @@
 class CollectionsController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show]
   before_action :set_collection, only: [:show, :edit, :update, :destroy]
+  before_action :authorize_collection, except: [:index, :show, :new, :create]
   respond_to :json, only: [:create, :destroy, :update]
   # GET /collections
   # GET /collections.json
@@ -60,6 +61,10 @@ class CollectionsController < ApplicationController
 
   private
     # Use callbacks to share common setup or constraints between actions.
+    def authorize_collection
+      authorize @collection
+    end
+
     def set_collection
       @collection = Collection.find(params[:id])
     end
