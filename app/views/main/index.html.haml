@@ -6,11 +6,11 @@
 #photos
   - @photos.each do |photo|
     .photo
-      = link_to(image_tag(photo.image.thumb.url, alt: 'Image'), photo, target: '_blank') if photo.image?
+      = link_to(image_tag(photo.image.thumb.url, alt: 'Фотография'), photo, target: '_blank') if photo.image?
 %h1 Последние посты
 - @posts.each do |post|
   .post
     = post.title
-    = link_to(image_tag(post.photo.small_thumb.url, alt: 'Image'), post, target: '_blank') if post.photo?
+    = link_to(image_tag(post.photo.small_thumb.url, alt: 'Фотография'), post, target: '_blank') if post.photo?
     = post.description
-    = link_to 'Show', post
+    = link_to 'Читать', post

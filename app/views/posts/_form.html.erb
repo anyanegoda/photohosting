@@ -12,12 +12,12 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :title %>
+    <%= f.label :Название %>
     <%= f.text_field :title %>
   </div>
 
   <div class="field">
-    <%= f.label :photo %>
+    <%= f.label :Фото_поста %>
     <%= f.file_field :photo %>
     <%= f.hidden_field :photo_cache %>
     <% if @post.photo? %>
@@ -26,17 +26,17 @@
   </div>
 
   <div class="field">
-    <%= f.label :body %>
+    <%= f.label :Тело_поста %>
     <%= f.text_area :body, id: "wysiwyg" %>
   </div>
 
   <div class="field">
-    <%= f.label :description %>
+    <%= f.label :Краткое_описание_поста %>
     <%= f.text_area :description %>
   </div>
 
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit "Создать пост" %>
   </div>
 <% end %>
 <script>
