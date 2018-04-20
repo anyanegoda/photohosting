@@ -3,17 +3,10 @@
   %strong Photo url:
   = @photo.image
   = link_to(image_tag(@photo.image.big_thumb.url, alt: 'Image'), @photo.image.url, target: '_blank') if @photo.image?
-%p
-  - if @photo.attachments?
-    %ul
-      - @photo.attachments.each do |attachment|
-        %li= link_to(image_tag(attachment.small_thumb.url, alt: 'Image'), attachment.url, target: '_blank')
-%p
-  %strong Views:
+  %strong Просмотры:
   = @photo.views
 %p
-  %strong Likes:
-  = @photo.likes
+  %strong Лайки:
   %span.likes-count= @photo.get_upvotes.size
 - if user_signed_in?
   = link_to like_photo_path(@photo), class:"like-btn", method: :put, remote: :true do
@@ -22,12 +15,12 @@
         %p
           %i.fa.fa-thumbs-up.fa-3x
 .download
-  %strong Downloads:
+  %strong Загрузки:
   .download-item
     %p= @photo.downloads
-  %a#download-count{"data-photo-id" => @photo.id, :download => "", :href => @photo.image} download me
+  %a#download-count{"data-photo-id" => @photo.id, :download => "", :href => @photo.image} Бесплатная загрузка
   %p
-    %strong Tags:
+    %strong Теги:
     - @photo.tags.each do |tag|
       = tag.tag
   = social_share_button_tag(@photo.image)
@@ -86,6 +79,6 @@
       - else
         %h4.no-comment= 'Ещё никто не оставил комментарий. Будьте первым!'
   - if user_signed_in?
-    = link_to 'Edit', edit_photo_path(@photo)
+    = link_to 'Редактировать', edit_photo_path(@photo)
     |
-  = link_to 'Back', photos_path
+  = link_to 'Назад', photos_path
