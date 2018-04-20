@@ -1,0 +1,31 @@
+%p#notice= notice
+%h1 Photos
+#accordeon
+  %button.btn-sort-view
+    = 'Сортировать по'
+  .btn-sort-items
+    %button.btn-sort{"data-sort" => "views"}
+      = 'Views'
+    %button.btn-sort{"data-sort" => "likes"}
+      = 'Likes'
+    %button.btn-sort{"data-sort" => "downloads"}
+      = "Downloads"
+    %button.btn-sort{"data-sort" => "date-asc"}
+      = "Date asc"
+    %button.btn-sort{"data-sort" => "date-desc"}
+      = "Date desc"
+    %button.btn-sort{"data-sort" => "all"}
+      = "Сбросить"
+- @users.each do |user|
+  - user.photos.each do |photo|
+    = photo.image
+#photos.photos
+  - @photos.each do |photo|
+    .photo
+      = link_to(image_tag(photo.image.thumb.url, alt: 'Image'), photo, target: '_blank') if photo.image?
+      - photo.tags.each do |tag|
+        = tag.tag
+      = link_to 'Destroy', photo, method: :delete, data: { confirm: 'Are you sure?' }
+%br/
+- if user_signed_in?
+  = link_to 'New Photo', new_photo_path

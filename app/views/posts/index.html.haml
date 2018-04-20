@@ -12,10 +12,7 @@
       %tr
         %td= post.title
         %td= link_to(image_tag(post.photo.thumb.url, alt: 'Image'), post, target: '_blank') if post.photo?
-        %td
-          .froala-view
-            = simple_format(post.body, {}, sanitize: false)
-          = truncate(strip_tags(post.body), length: 80)
+        %td= post.description
         %td= link_to 'Show', post
         - if policy(post).edit?
           %td= link_to 'Edit', edit_post_path(post)
