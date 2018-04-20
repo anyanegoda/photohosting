@@ -40,6 +40,9 @@
   %h3 Collection Photo Testing
   - @user.collections.each do |collection|
     %h4= collection.name
+    %br/
+    - if policy(collection).edit?
+      = link_to 'Редактировать', edit_collection_path(collection)
     - collection.photos.each do |photo|
       = image_tag(photo.image.thumb.url, alt: 'Фотография')
 %br/

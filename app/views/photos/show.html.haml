@@ -114,7 +114,8 @@
     - else
       %h4.no-comment= 'Ещё никто не оставил комментарий. Будьте первым!'
 
-- if user_signed_in?
-  = link_to 'Редактировать', edit_photo_path(@photo)
-  |
+- if policy(@photo).edit?
+  = link_to 'Редактировать', edit_photo_path(@photo) |
+- if policy(@photo).destroy?
+  = link_to 'Удалить', @photo, method: :delete, data: { confirm: 'Вы уверены?' }
 = link_to 'Назад', photos_path

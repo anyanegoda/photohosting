@@ -23,7 +23,6 @@
       = link_to(image_tag(photo.image.thumb.url, alt: 'Фотография'), photo, target: '_blank') if photo.image?
       - photo.tags.each do |tag|
         = tag.tag
-      = link_to 'Удалить', photo, method: :delete, data: { confirm: 'Вы уверены?' }
 %br/
 - if user_signed_in?
   = link_to 'Добавить новую фотографию', new_photo_path

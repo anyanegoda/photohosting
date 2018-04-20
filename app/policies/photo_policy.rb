@@ -6,10 +6,6 @@ class PhotoPolicy < ApplicationPolicy
     @photo = photo
   end
 
-  def create?
-    @current_user&.admin?
-  end
-
   def update?
     @current_user&.admin? || @current_user.id == @photo.user_id
   end
