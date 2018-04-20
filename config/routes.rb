@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'main/index'
+
   get 'tags/index'
 
   resources :photos_comments
@@ -21,6 +23,7 @@ Rails.application.routes.draw do
   match 'index', to: 'photos#index', via: :all
   match 'users/:id', to: 'users#show', via: :all
   match 'search', to: 'tags#index', via: :all
+  match 'main', to: 'main#index', via: :all
   post 'photos/download'
   root to: 'photos#index'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html

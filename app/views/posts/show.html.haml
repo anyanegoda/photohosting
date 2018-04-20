@@ -9,7 +9,9 @@
   %strong Body:
 .froala-view
   = simple_format(@post.body, {}, sanitize: false)
-
+%p
+  %strong Description:
+  = @post.description
 .row
   - if user_signed_in?
     .col-md-6
