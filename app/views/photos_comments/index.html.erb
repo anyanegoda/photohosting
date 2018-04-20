@@ -1,0 +1,27 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Photos Comments</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Body</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @photos_comments.each do |photos_comment| %>
+      <tr>
+        <td><%= photos_comment.body %></td>
+        <td><%= link_to 'Show', photos_comment %></td>
+        <td><%= link_to 'Edit', edit_photos_comment_path(photos_comment) %></td>
+        <td><%= link_to 'Destroy', photos_comment, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Photos Comment', new_photos_comment_path %>

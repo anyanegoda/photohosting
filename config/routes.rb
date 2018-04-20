@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :photos_comments
   post 'collections_photos/create'
   get 'collections_photos/delete'
 
@@ -7,6 +8,7 @@ Rails.application.routes.draw do
   end
   resources :collections
   resources :photos do
+    resources :photos_comments, except: ['index','new']
     member do
       put "like" => "photos#vote"
     end

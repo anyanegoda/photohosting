@@ -7,6 +7,7 @@ class User < ApplicationRecord
   has_many :photos, inverse_of: :user
   has_many :collections
   has_many :comments
+  has_many :photos_comments
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable #, :confirmable
 

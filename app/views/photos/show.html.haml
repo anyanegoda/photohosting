@@ -1,0 +1,91 @@
+%p#notice= notice
+%p
+  %strong Photo url:
+  = @photo.image
+  = link_to(image_tag(@photo.image.big_thumb.url, alt: 'Image'), @photo.image.url, target: '_blank') if @photo.image?
+%p
+  - if @photo.attachments?
+    %ul
+      - @photo.attachments.each do |attachment|
+        %li= link_to(image_tag(attachment.small_thumb.url, alt: 'Image'), attachment.url, target: '_blank')
+%p
+  %strong Views:
+  = @photo.views
+%p
+  %strong Likes:
+  = @photo.likes
+  %span.likes-count= @photo.get_upvotes.size
+- if user_signed_in?
+  = link_to like_photo_path(@photo), class:"like-btn", method: :put, remote: :true do
+    %div
+      %span
+        %p
+          %i.fa.fa-thumbs-up.fa-3x
+.download
+  %strong Downloads:
+  .download-item
+    %p= @photo.downloads
+  %a#download-count{"data-photo-id" => @photo.id, :download => "", :href => @photo.image} download me
+  %p
+    %strong Tags:
+    - @photo.tags.each do |tag|
+      = tag.tag
+  = social_share_button_tag(@photo.image)
+  %p
+    %button#create-collection{"data-photo-id" => @photo.id, :type => "button"}
+      Create Collection
+  #new-collection-modal
+    %label{:for => "collection-title"} Название коллекции
+    %input#collection-title{:placeholder => "Название коллекции", :type => "text"}/
+    %textarea#collection-description{:placeholder => "Введите описание коллекции"}
+    %button#save-collection{:type => "button"} Сохранить
+    %button#back-to-collections{:type => "button"} Назад
+  #created-collections
+    - current_user.collections.each do |collection|
+      %button.choose-collection{"data-collection-id" => collection.id, :type => "button"}= collection.name
+  .row
+    - if user_signed_in?
+      .col-md-6
+        %textarea.form-control#photos_comment_body
+        %input#photo_id{ value: @photo.id, hidden: true }
+        %input#author_id{ value: current_user.id, hidden: true }
+        %input#author_email{ value: current_user.email, hidden: true }
+        %input#author_avatar{ value: current_user.avatar, hidden: true }
+        %button.btn.btn-my.mt-10.create_photos_comment= 'Добавить комментарий'
+    - else
+      .col-md-6
+        %p
+          ='Чтобы оставлять комментарии'
+          %a= link_to 'Войдите', new_user_session_path
+          ='либо'
+          %a= link_to 'Зарегистрируйтесь', new_user_registration_path
+  .row
+    .list-group.photos_comments
+      %a.list-group-item.active
+        = 'Комментарии:'
+      - if @photo.photos_comments.any?
+        - @photo.photos_comments.each do |photos_comment|
+          %a.list-group-item
+            .photos_comment_author
+              - if photos_comment.user.avatar?
+                =image_tag(photos_comment.user.avatar.thumb.url, class: 'img-circle')
+              - else
+                =image_tag(photos_comment.user.avatar/thumb.url, class: 'img-circle', size: 50)
+              %span
+                = photos_comment.user.name
+                = photos_comment.user.surname
+              %span.photos_comment-date
+                = I18n.l(photos_comment.created_at, format: :short)
+            %textarea.photos_body_edit{hidden: true}
+            %pre.photos_comment_body.inline{ id: "photos_comment_body_#{photos_comment.id}"}= photos_comment.body
+            %input.photos_comment_id{ value: photos_comment.id, hidden: true }
+            - if policy(photos_comment).destroy?
+              %button.btn.btn-default.delete_photos_comment.glyphicon.glyphicon-trash.icon.red.float-right
+            - if policy(photos_comment).edit?
+              %button.btn.btn-default.edit_photos_comment.glyphicon.glyphicon-pencil.icon.float-right
+      - else
+        %h4.no-comment= 'Ещё никто не оставил комментарий. Будьте первым!'
+  - if user_signed_in?
+    = link_to 'Edit', edit_photo_path(@photo)
+    |
+  = link_to 'Back', photos_path

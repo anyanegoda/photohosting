@@ -8,6 +8,6 @@ class Photo < ApplicationRecord
   has_and_belongs_to_many :collections
   accepts_nested_attributes_for :tags, reject_if: :all_blank, allow_destroy: true
   #paginates_per 6
-  searchkick word_start: [:tag]
+  has_many :photos_comments, dependent: :destroy
 
 end
