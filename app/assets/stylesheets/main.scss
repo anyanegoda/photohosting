@@ -1,3 +1,18 @@
 // Place all the styles related to the Main controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+.main-image {
+  background: asset_url("screen-1.jpg") no-repeat center;
+  min-height: 100vh;
+  color: #fff;
+  background-size: cover;
+  width: 100%;
+}
+
+.title {
+    margin-bottom: 200px;
+    font-family: "Roboto Slab";
+    font-size: 60px;
+    color: #fff;
+}
