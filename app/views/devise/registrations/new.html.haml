@@ -1,0 +1,91 @@
+.container-fluid.no-padding-left.align.hidden-sm.hidden-xs
+  .col-lg-6.col-md-6.no-padding-left
+    .registration-info
+      .registration-info-text
+        %h1.h1-registration FREEIMAGES
+        %p Присоединяйтесь и получайте доступ к множеству бесплатных фотографий с высоким разрешением, которые вы не сможете найти больше нигде
+  .col-lg-offset-1.col-lg-5.col-md-6.no-padding-left.registration-center
+    .registration
+      = form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f|
+        = devise_error_messages!
+        .user-name
+          .field.name
+            = f.label :Имя
+            %br/
+            = f.text_field :name, autofocus: true, class: "input-custom"
+          .field.surname
+            = f.label :Фамилия
+            %br/
+            = f.text_field :surname, autofocus: true, class: "input-custom"
+        .field
+          = f.label :Электронная_почта
+          %br/
+          = f.email_field :email, autofocus: true, autocomplete: "email", class: "input-custom"
+        .field
+          = f.label :Пароль
+          - if @minimum_password_length
+            %span (минимум #{@minimum_password_length} символов)
+          %br/
+          = f.password_field :password, autocomplete: "off", class: "input-custom"
+        .field
+          = f.label :Подтверждение_пароля
+          %br/
+          = f.password_field :password_confirmation, autocomplete: "off", class: "input-custom"
+        %div.avatar
+          = f.label :Аватар
+          = f.file_field :avatar, class: "input-a"
+          = f.hidden_field :avatar_cache
+        - if @user.avatar?
+          = image_tag user.avatar.thumb.url
+        .field
+          = f.label :Описание
+          %br/
+          = f.text_field :description, autocomplete: "off", class: "input-custom"
+        .actions
+          = f.submit "Зарегистрироваться", class: "input-b"
+          = render "devise/shared/links"
+.container-fluid.no-padding-left.hidden-lg.hidden-md
+  .col-sm-12.col-xs-12.no-padding-left
+    .registration-info
+      .registration-info-text
+        %h1.h1-registration FREEIMAGES
+        %p Присоединяйтесь и получайте доступ к множеству бесплатных фотографий с высоким разрешением, которые вы не сможете найти больше нигде
+  .col-sm-12.col-xs-12.no-padding-left.registration-center
+    .registration
+      = form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f|
+        = devise_error_messages!
+        .user-name
+          .field.name
+            = f.label :Имя
+            %br/
+            = f.text_field :name, autofocus: true, class: "input-custom"
+          .field.surname
+            = f.label :Фамилия
+            %br/
+            = f.text_field :surname, autofocus: true, class: "input-custom"
+        .field
+          = f.label :Электронная_почта
+          %br/
+          = f.email_field :email, autofocus: true, autocomplete: "email", class: "input-custom"
+        .field
+          = f.label :Пароль
+          - if @minimum_password_length
+            %span (минимум #{@minimum_password_length} символов)
+          %br/
+          = f.password_field :password, autocomplete: "off", class: "input-custom"
+        .field
+          = f.label :Подтверждение_пароля
+          %br/
+          = f.password_field :password_confirmation, autocomplete: "off", class: "input-custom"
+        %div.avatar
+          = f.label :Аватар
+          = f.file_field :avatar, class: "input-a"
+          = f.hidden_field :avatar_cache
+        - if @user.avatar?
+          = image_tag user.avatar.thumb.url
+        .field
+          = f.label :Описание
+          %br/
+          = f.text_field :description, autocomplete: "off", class: "input-custom"
+        .actions
+          = f.submit "Зарегистрироваться", class: "input-b"
