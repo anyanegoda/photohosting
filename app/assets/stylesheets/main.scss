@@ -75,6 +75,14 @@
   position: relative;
 }
 
+.full-link-image{
+  height: 100%;
+  &>img{
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
 .full-link-image-wrapper, .half-link-image-wrapper{
   position: absolute;
   bottom: 0;
@@ -185,6 +193,16 @@
 
 .header-logo{
   font-family: "Oswald";
+  a {
+    color: white;
+    &:visited{
+      color: white;
+    }
+    &:hover{
+      color: white;
+      text-decoration: none;
+    }
+  }
 }
 
 .header-profile{
@@ -288,6 +306,13 @@
   margin: 0;
 }
 
+.custom-h2{
+  margin-top: 70px;
+  margin-bottom: 50px;
+  font-size: 2.6em;
+  font-family: "Roboto Medium"
+}
+
 @media only screen and (max-width: 1024px){
   .full-link-image-text, .half-link-image-text{
     padding: 0 15px;
@@ -334,5 +359,74 @@
   }
   .post-item:last-of-type{
     display: none;
+  }
+  .custom-h2{
+    margin: 50px 0 35px;
+  }
+  .half-link-image-wrapper{
+    max-width: 150px;
+  }
+  .full-link-image-wrapper, .half-link-image-text-wrapper{
+    max-height: 125px;
+  }
+}
+
+@media only screen and (max-width: 767px){
+  .mobile-menu-container .header-profile{
+    text-align: center;
+    padding-bottom: 20px;
+    margin-bottom: 20px;
+    border-bottom: 1px solid white;
+  }
+  .main-header .container{
+    width: 86%;
+    padding: 0;
+    margin: 0 3%;
+  }
+  .mobile-menu-container{
+    width: 100%;
+  }
+  .mobile-menu-container a{
+    display: block;
+  }
+  .title{
+    font-size: 3em;
+  }
+  .custom-h2{
+    font-size: 1.4em;
+    margin: 40px 0 25px;
+  }
+  #photos .mobile-full-width{
+    padding: 0;
+  }
+  .half-link-image-wrapper{
+    max-width: 115px;
+  }
+  .half-link-image{
+    margin-bottom: 20px;
+  }
+  .link-image-title{
+    font-size: 20px;
+  }
+  .footer-links{
+    flex-wrap: wrap;
+  }
+  .footer-block{
+    width: 48%;
+    margin-bottom: 30px;
+  }
+  .footer-block:nth-of-type(2n){
+    margin-right: 0;
+  }
+  .slick-dots{
+    margin: 0;
+  }
+  #posts .slick-dots li button:before{
+    font-size: 10px;
+    color: #1f74fb;
+  }
+  #posts .slick-dots li.slick-active button:before{
+    color: #1f74fb;
+    opacity: 1;
   }
 }

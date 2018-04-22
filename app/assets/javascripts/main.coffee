@@ -6,3 +6,23 @@ $ ->
     $('.mobile-menu-container').addClass 'visible'
   $('.close-mobile-menu').on 'click', ->
     $('.mobile-menu-container').removeClass 'visible'
+
+  $(document).ready ->
+    if $(window).width() < 767
+      $('#post-slider').slick
+        infinite: true
+        slidesToShow: 1
+        slidesToScroll: 1
+        dots: true
+        arrows: false
+
+  $(window).resize ->
+    if $(window).width() < 767
+      $('#post-slider').slick
+        infinite: true
+        slidesToShow: 1
+        slidesToScroll: 1
+        dots: true
+        arrows: false
+    else
+      $('#post-slider').slick 'unslick'

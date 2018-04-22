@@ -24,6 +24,6 @@ Rails.application.routes.draw do
   match 'search', to: 'tags#index', via: :all
   match 'main', to: 'main#index', via: :all
   post 'photos/download'
-  root to: 'photos#index'
+  root to: 'main#index'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

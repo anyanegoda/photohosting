@@ -14,24 +14,33 @@
     .main-header
       .container
         .row.flex-row
-          .col-lg-2.col-md-2.header-logo= 'FREEIMAGES'
-          .col-lg-6.hidden-md.hidden-sm.header-menu
+          .col-lg-2.col-md-2.col-xs-2.header-logo= link_to 'FREEIMAGES', root_path
+          .col-lg-6.hidden-md.hidden-sm.hidden-xs.header-menu
             = link_to 'Фотографии', photos_path
             = link_to 'Галлереи', collections_path
             = link_to 'Фотографы', users_path
             = link_to 'Блог', posts_path
             = link_to 'О нас', collections_path
-          .col-lg-4.col-md-9.header-profile
+          .col-lg-4.col-md-9.col-sm-9.hidden-xs.header-profile
             - if user_signed_in?
               %span="Здравствуйте, #{current_user.name} #{current_user.surname}"
               = link_to 'Выйти', destroy_user_session_path, :method => :delete
             - else
               = link_to 'Войти', new_user_session_path
               = link_to 'Зарегистрироваться', new_user_registration_path, class: 'registration'
-          .hidden-lg.col-md-1
+          .hidden-lg.hidden-md.hidden-sm.col-xs-9
+          .hidden-lg.col-md-1.col-sm-1.col-xs-1
             %button.mobile-menu-button{type: 'button'}
               = image_tag 'menu.png'
           .hidden-lg.mobile-menu-container
+            .hidden-lg.hidden-md.hidden-sm.header-profile
+              - if user_signed_in?
+                %span="Здравствуйте, #{current_user.name} #{current_user.surname}"
+                = link_to 'Выйти', destroy_user_session_path, :method => :delete
+              - else
+                = link_to 'Войти', new_user_session_path
+                = link_to 'Зарегистрироваться', new_user_registration_path, class: 'registration'
+
             %button.close-mobile-menu{type: 'button'} x
             = link_to 'Фотографии', photos_path
             = link_to 'Галлереи', collections_path
@@ -52,12 +61,18 @@
     .main-footer
       .container
         .row
-          .col-lg-4.col-md-4.col-sm-4.footer-about
+          .col-lg-4.col-md-4.col-sm-4.hidden-xs.footer-about
             %b FreeImages -
             это яркое сообщество креативных людей, предоставляющее бесплатные изображения без авторских прав.
             %span.mobile-hide Все содержимое выпущено в Creative Commons CC0, что делает их безопасными для использования, не запрашивая разрешения или отдавая должное художнику - даже в коммерческих целях.
             = link_to 'Подробнее...', photos_path, class: 'footer-about-link'
-          .col-lg-7.col-lg-offset-1.col-md-7.col-md-offset-1.col-sm-7.col-sm-offset-1.footer-links
+          .col-lg-7.col-lg-offset-1.col-md-7.col-md-offset-1.col-sm-7.col-sm-offset-1.col-xs-12.footer-links
+            .footer-block.hidden-lg.hidden-md.hidden-sm
+              .footer-about
+                %b FreeImages -
+                это яркое сообщество креативных людей, предоставляющее бесплатные изображения без авторских прав.
+                %span.mobile-hide Все содержимое выпущено в Creative Commons CC0, что делает их безопасными для использования, не запрашивая разрешения или отдавая должное художнику - даже в коммерческих целях.
+                = link_to 'Подробнее...', photos_path, class: 'footer-about-link'
             .footer-block
               %h4.footer-title Меню
               .footer-link-block

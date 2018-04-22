@@ -14,11 +14,11 @@
 #photos
   .container
     .row
-      .col-lg-12
+      .col-lg-12.col-md-12.col-sm-12.col-xs-12
         %h2.custom-h2 Недавно добавленные фотографии
     .row
       - @photos.each do |photo|
-        .col-lg-4.col-md-6.col-sm-6
+        .col-lg-4.col-md-6.col-sm-6.col-xs-12.mobile-full-width
           .photo
             - if photo.image?
               = link_to photo, target: '_blank' do
@@ -32,7 +32,7 @@
                 %span.photo-info-counters
                   = photo.photos_comments.size
     .row
-      .col-lg-2.col-lg-offset-5.col-md-2.col-md-offset-5.col-sm-2.col-sm-offset-5
+      .col-lg-2.col-lg-offset-5.col-md-3.col-md-offset-5.col-sm-3.col-sm-offset-5.col-xs-6.col-xs-offset-3
         = link_to photos_path, class: 'see-more' do
           Увидеть больше
           %span.btn__bg
@@ -41,7 +41,7 @@
 #links
   .container
     .row.flex-row
-      .col-lg-6
+      .col-lg-6.col-md-6.col-sm-6.hidden-xs
         = link_to collections_path do
           .full-link-image
             = image_tag('section-1.jpg', alt: 'Картинка секции')
@@ -50,7 +50,16 @@
                 %h3.link-image-title Подборки для вдохновения
                 %p.link-image-text Какой-то текст
                 = image_tag('ellips.png', alt: 'Стрелочка', class: 'ellips')
-      .col-lg-6.flex-column
+      .col-lg-6.col-md-6.col-sm-6.col-xs-12.flex-column
+        = link_to collections_path, class: 'hidden-lg hidden-md hidden-sm' do
+          .half-link-image
+            = image_tag('mobile_photos.png', alt: 'Картинка секции')
+            .half-link-image-wrapper
+            .half-link-image-text-wrapper
+              .half-link-image-text
+                %h3.link-image-title Подборки для вдохновения
+                %p.link-image-text Какой-то текст
+                = image_tag('ellips.png', alt: 'Стрелочка', class: 'ellips')
         = link_to photos_path do
           .half-link-image
             = image_tag('section-2.jpg', alt: 'Картинка секции')
@@ -79,9 +88,9 @@
     .row
       .col-lg-12
         %h2.custom-h2 Блог
-    .row
+    .row#post-slider
       - @posts.each do |post|
-        .col-lg-4.col-md-6.col-sm-6.post-item
+        .col-lg-4.col-md-6.col-sm-6.col-xs-10.post-item
           .post
             - if post.photo?
               = link_to post, target: '_blank', class: 'post-link' do

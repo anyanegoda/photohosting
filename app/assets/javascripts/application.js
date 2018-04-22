@@ -43,4 +43,5 @@
 //= require plugins/table.min
 //= require plugins/url.min
 //= require plugins/video.min
+//= require jquery.slick
 //= require social-share-button

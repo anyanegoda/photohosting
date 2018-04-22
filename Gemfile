@@ -49,6 +49,7 @@ gem "font-awesome-rails"
 gem 'simple_form'
 gem "responders"
 gem 'acts_as_votable'
+gem "jquery-slick-rails"
 
 gem 'pry-rails', :group => :development
 
