@@ -45,7 +45,7 @@ gem "cocoon"
 gem 'filterrific'
 gem 'kaminari'
 gem 'wysiwyg-rails'
-gem "font-awesome-rails"
+gem 'font-awesome-sass', '~> 5.0.9'
 gem 'simple_form'
 gem "responders"
 gem 'acts_as_votable'
