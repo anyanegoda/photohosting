@@ -1,11 +1,6 @@
 // Place all the styles related to the Photos controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
-
-.user-info {
-
-}
-
 #photos {
   display: flex;
   justify-content: space-between;
@@ -29,7 +24,6 @@ button:focus{
 .btn-sort-items{
   display: none;
 }
-
 
 #new-collection-modal{
   z-index: -999;
@@ -184,8 +178,8 @@ button:focus{
 }
 
 .collection-container::-webkit-scrollbar-track {
-    -webkit-box-shadow: inset 0 0 6px #1f74fb;
-    border-left: solid 10px transparent;
+  -webkit-box-shadow: inset 0 0 6px #1f74fb;
+  border-left: solid 10px transparent;
 }
 
 .collection-container::-webkit-scrollbar-thumb {
@@ -317,19 +311,19 @@ button:focus{
 .see-more{
   opacity: 1;
   transition: opacity .4s;
-    transition-timing-function: cubic-bezier(.42,0,.58,1);
-    color: #1f74fb;
-    background-color: transparent;
-    border-color: transparent;
-    display: inline-block;
+  transition-timing-function: cubic-bezier(.42,0,.58,1);
+  color: #1f74fb;
+  background-color: transparent;
+  border-color: transparent;
+  display: inline-block;
   vertical-align: top;
   text-align: left;
   padding: 17px 15px 15px;
   line-height: 18px;
   overflow: hidden;
-    max-width: 100%;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+  max-width: 100%;
+  text-overflow: ellipsis;
+  white-space: nowrap;
   border-radius: 0;
   position: relative;
   font-size: 14px;
@@ -533,7 +527,7 @@ hr.comment-line {
 .main-photo {
   border-radius: 5px;
   img {
-  width: 100%;
+    width: 100%;
   }
 }
 
@@ -638,7 +632,6 @@ button.btn {
   .alert{
     width: 75%;
   }
-
   .photo{
     margin-bottom: 20px;
   }
