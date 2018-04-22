@@ -81,8 +81,6 @@ GEM
       activemodel (>= 3.0)
       mime-types (>= 1.0)
     filterrific (5.0.1)
-    font-awesome-rails (4.7.0.4)
-      railties (>= 3.2, < 6.0)
     font-awesome-sass (5.0.9)
       sass (>= 3.2)
     globalid (0.4.1)
@@ -237,7 +235,7 @@ DEPENDENCIES
   devise
   file_validators
   filterrific
-  font-awesome-rails
+  font-awesome-sass (~> 5.0.9)
   haml
   jbuilder (~> 2.5)
   jquery-rails

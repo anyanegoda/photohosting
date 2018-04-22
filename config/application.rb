@@ -12,6 +12,9 @@ module Photohosting
     config.app_generators.scaffold_controller :responders_controller
     config.i18n.default_locale = :ru
     config.i18n.locale = :ru
+    config.time_zone = 'Moscow' # Your local time zone
+    config.active_record.default_timezone = :local
+    config.active_record.time_zone_aware_attributes = false
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.

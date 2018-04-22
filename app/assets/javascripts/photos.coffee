@@ -44,6 +44,12 @@ $ ->
   $('#back-to-collections').on 'click', ->
     $('#new-collection-modal').removeClass 'visible'
 
+  $('#share-photo').on 'click', ->
+    $('#social-modal').addClass 'visible'
+
+  $('#social-modal .close-modal').on 'click', ->
+    $('#social-modal').removeClass 'visible'
+
   $('#save-collection').on 'click', ->
     $collection_name = $('#collection-title').val()
     collection_description = $('#collection-description').val()
@@ -193,7 +199,6 @@ $ ->
       data: { photo_id: photo_id }
       success: (data) ->
         d = data.downloads
-        debugger
         $('.download-item').html data.downloads
       error: ->
         $('.alert').remove()
@@ -204,7 +209,11 @@ $ ->
         $('body').prepend(
           $(response).hide().fadeIn()
         )
-
+  $('.ico-view').on 'click', ->
+    $this = $(this)
+    $('.likes-count').bind "DOMSubtreeModified", ->
+      $('.ico-view').addClass 'visible'
+      $this.removeClass 'visible'
   $(document).click (event) ->
-    if !$(event.target).closest('.add-to-collection-wrapper, #open-collection-modal, .alert').length
-      $('#add-to-collection').removeClass 'visible'
+    if !$(event.target).closest('.add-to-collection-wrapper, #open-collection-modal, .alert, #share-photo, .social-wrapper').length
+      $('#add-to-collection, #social-modal').removeClass 'visible'

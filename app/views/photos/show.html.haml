@@ -1,121 +1,242 @@
 %p#notice= notice
-%button#open-collection-modal{type: "button"}
-  = image_tag("add_to_gallery.png", alt: 'Add To Gallery', class: "icon")
-  \В коллекцию
-#add-to-collection
-  .add-to-collection-wrapper
-    .add-to-collection-image
-      = image_tag(@photo.image.big_thumb.url, alt: 'Image')
-    .add-to-collection-text
-      %span.close-modal= fa_icon "times 2x"
-      %h3.custom-header Добавить в коллекцию
-      %button#create-collection.add-to-collection{"data-photo-id" => @photo.id, "data-current-image" => @photo.image.big_thumb.url, type: "button"}
-        \Создать новую коллекцию
-      #new-collection-modal
-        %span.close-modal= fa_icon "times 2x"
-        %h3.custom-header Создать новую коллекцию
-        %label{for: "collection-title"} Название коллекции
-        %input#collection-title{placeholder: "Название коллекции", type: "text"}
-        %p Описание (необязательно)
-        %textarea#collection-description{placeholder: "Введите описание коллекции", rows: "10"}
-        .collection-actions
-          %button#back-to-collections{type: "button"} Отмена
-          %button#save-collection{type: "button"} Создать коллекцию
-      - if current_user.collections
-        .collection-container
-          - current_user.collections.order({ created_at: :desc }).each do |collection|
-            - flag= collection.photos.any?{|a| a.id == @photo.id}
-            - if collection.photos.size > 0
-              %button.add-to-collection.choose-collection{type: "button", 'data-collection-id' => collection.id, 'data-current-image' => @photo.image.big_thumb.url, 'data-last-image' => (flag ? collection.photos.last(2)[0].image.big_thumb.url : collection.photos.last.image.big_thumb.url), style: (flag ? "background: url('#{@photo.image.big_thumb.url}') center" : "background: url('#{collection.photos.last.image.big_thumb.url}') center"),  class: ("remove-from-collection" if flag) }
-                .collection-overlay{class: ("visible" if flag)}
-                .choose-collection-text
-                  %p.photo-count
-                    = collection.photos.length
-                    \фото
-                  %span.collection-plus.collection-sign{hidden: flag}= fa_icon 'plus'
-                  %span.collection-minus.collection-sign= fa_icon 'minus'
-                  %span= collection.name
-            - else
-              %button.add-to-collection.choose-collection{type: "button", 'data-collection-id' => collection.id, 'data-current-image' => @photo.image.big_thumb.url, class: ("remove-from-collection" if flag) }
-                .collection-overlay{class: ("visible" if flag)}
-                .choose-collection-text
-                  %p.photo-count
-                    = collection.photos.length
-                    \фото
-                  %span.collection-plus.collection-sign{hidden: flag}= fa_icon 'plus'
-                  %span.collection-minus.collection-sign= fa_icon 'minus'
-                  %span= collection.name
-%p
-  %strong Photo url:
-  = @photo.image
-  = link_to(image_tag(@photo.image.big_thumb.url, alt: 'Image'), @photo.image.url, target: '_blank') if @photo.image?
-  %strong Просмотры:
-  = @photo.views
-%p
-  %strong Лайки:
-  %span.likes-count= @photo.get_upvotes.size
-- if user_signed_in?
-  = link_to like_photo_path(@photo), class:"like-btn", method: :put, remote: :true do
-    %div
-      %span
-        %p
-          %i.fa.fa-thumbs-up.fa-3x
-.download
-  %strong Загрузки:
-  .download-item
-    %p= @photo.downloads
-  %a#download-count{"data-photo-id" => @photo.id, :download => "", :href => @photo.image} Бесплатная загрузка
-%p
-  %strong Теги:
-  - @photo.tags.each do |tag|
-    = tag.tag
-= social_share_button_tag(@photo.image)
+.container
+  .row
+    .col-lg-8.col-md-12.col-sm-12.col-xs-12.main-photo
+      = image_tag(@photo.image.big_thumb.url, alt: 'Фотография') if @photo.image?
+    .col-md-12.col-sm-12.col-xs-12.mobile-tag.visible-md-block.visible-sm-block.visible-xs-block
+      - @photo.tags.each do |tag|
+        %span.tag= tag.tag
+      %hr.comment-line
+    .col-lg-4.col-md-6.col-sm-6.col-xs-12
+      .right-info
+        .user-info
+          .user-photo
+            = link_to(image_tag(@photo.user.avatar.thumb.url, alt: "#{@photo.user.name} #{@photo.user.surname}", class: 'img-circle'), @photo.user) if @photo.user.avatar?
+          .user-text
+            %h4
+              = @photo.user.name
+              = @photo.user.surname
+            %p
+              = @photo.user.photos.size
+        %br/
+        .btn-open
+          %button#open-collection-modal{type: "button"}
+            = image_tag("add_to_gallery.png", alt: 'Add To Gallery', class: "icon")
+            \В коллекцию
+          %button#share-photo{type: "button"}
+            = icon("fas", "share 1x")
+            \Поделиться
+          #add-to-collection
+            .add-to-collection-wrapper
+              .add-to-collection-image
+                = image_tag(@photo.image.big_thumb.url, alt: 'Image')
+              .add-to-collection-text
+                %span.close-modal= icon("fas", "times 1x")
+                %h3.custom-header Добавить в коллекцию
+                %button#create-collection.add-to-collection{"data-photo-id" => @photo.id, "data-current-image" => @photo.image.big_thumb.url, type: "button"}
+                  \Создать новую коллекцию
+                #new-collection-modal
+                  %h3.custom-header Создать новую коллекцию
+                  %span.close-modal= icon("fas", "times 1x")
+                  %label{for: "collection-title"} Название коллекции
+                  %input#collection-title{placeholder: "Название коллекции", type: "text"}
+                  %p Описание (необязательно)
+                  %textarea#collection-description{placeholder: "Введите описание коллекции", rows: "10"}
+                  .collection-actions
+                    %button#back-to-collections{type: "button"} Отмена
+                    %button#save-collection{type: "button"} Создать коллекцию
+                - if @photo.user.collections
+                  .collection-container
+                    - @photo.user.collections.order({ created_at: :desc }).each do |collection|
+                      - flag= collection.photos.any?{|a| a.id == @photo.id}
+                      - if collection.photos.size > 0
+                        %button.add-to-collection.choose-collection{type: "button", 'data-collection-id' => collection.id, 'data-current-image' => @photo.image.big_thumb.url, 'data-last-image' => (flag ? collection.photos.last(2)[0].image.big_thumb.url : collection.photos.last.image.big_thumb.url), style: (flag ? "background: url('#{@photo.image.big_thumb.url}') center" : "background: url('#{collection.photos.last.image.big_thumb.url}') center"),  class: ("remove-from-collection" if flag) }
+                          .collection-overlay{class: ("visible" if flag)}
+                          .choose-collection-text
+                            %p.photo-count
+                              = collection.photos.length
+                              \фото
+                            %span.collection-plus.collection-sign{hidden: flag}= icon("fas", "plus")
+                            %span.collection-minus.collection-sign= icon("fas", "minus")
+                            %span= collection.name
+                      - else
+                        %button.add-to-collection.choose-collection{type: "button", 'data-collection-id' => collection.id, 'data-current-image' => @photo.image.big_thumb.url, class: ("remove-from-collection" if flag) }
+                          .collection-overlay{class: ("visible" if flag)}
+                          .choose-collection-text
+                            %p.photo-count
+                              = collection.photos.length
+                              \фото
+                            %span.collection-plus.collection-sign{hidden: flag}= icon("fas", "plus")
+                            %span.collection-minus.collection-sign= icon("fas", "minus")
+                            %span= collection.name
+        %hr.photo-line.hidden-md.hidden-sm
+        .photo-info.hidden-md.hidden-sm
+          .p
+            %span.ico= icon("fas", "eye")
+            = @photo.views
+          - if user_signed_in?
+            = link_to like_photo_path(@photo), class:"like-btn", method: :put, remote: :true do
+              .p
+                - view= current_user.voted_for? @photo
+                %span.ico.ico-view.dislike{class: ("visible" if view)}= icon("fas", "heart")
+                %span.ico.ico-view.like{class: ("visible" if !view)}= icon("far", "heart")
+                %span.likes-count= @photo.get_upvotes.size
+          - else
+            .p
+              %span.ico= icon("fas", "heart")
+              %span.likes-count= @photo.get_upvotes.size
+          .p
+            %span.ico= icon("fas", "comment")
+            = @photo.photos_comments.size
+          .p
+            %span.ico= icon("fas", "cloud-download-alt")
+            %span.download-item= @photo.downloads
+        %hr.photo-line-2.hidden-md.hidden-sm
+        .hidden-md.hidden-sm.hidden-xs
+          %h4.c
+            CC0 Creative Commons
+          %p.c
+            Бесплатно для коммерческого
+            %br/
+            использования
+            %br/
+            Указание авторства не требуется
+          %a#download-count{"data-photo-id" => @photo.id, :download => "", :href => @photo.image}
+            %span.download-margin-right= icon("fas", "cloud-download-alt")
+            \Бесплатная загрузка
+        .change-photo.hidden-md.hidden-sm.hidden-xs
+          - if user_signed_in?
+            .a
+              .a-1
+                - if policy(@photo).edit?
+                  = link_to 'Редактировать', edit_photo_path(@photo)
+              .a-2
+                - if policy(@photo).destroy?
+                  = link_to 'Удалить', @photo, method: :delete, data: { confirm: 'Вы уверены?' }
+    .col-md-6.col-sm-6.col-xs-12.cc0-mobile-show
+      %h4.c
+        CC0 Creative Commons
+      %p.c
+        Бесплатно для коммерческого
+        %br/
+        использования
+        %br/
+        Указание авторства не требуется
+      %a#download-count{"data-photo-id" => @photo.id, :download => "", :href => @photo.image}
+        %span.download-margin-right= icon("fas", "cloud-download-alt")
+        \Бесплатная загрузка
+    .col-md-12.col-sm-12.visible-sm-block.visible-md-block.hidden-lg
+      %hr.photo-line
+    .col-md-6.col-sm-6.hidden-lg
+      .photo-info
+        .p
+          %span.ico= icon("fas", "eye")
+          = @photo.views
+        - if user_signed_in?
+          = link_to like_photo_path(@photo), class:"like-btn", method: :put, remote: :true do
+            .p
+              - view= current_user.voted_for? @photo
+              %span.ico.ico-view.dislike{class: ("visible" if view)}= icon("fas", "heart")
+              %span.ico.ico-view.like{class: ("visible" if !view)}= icon("far", "heart")
+              %span.likes-count= @photo.get_upvotes.size
+        - else
+          .p
+            %span.ico= icon("fas", "heart")
+            %span.likes-count= @photo.get_upvotes.size
+        .p
+          %span.ico= icon("fas", "comment")
+          = @photo.photos_comments.size
+        .p
+          %span.ico= icon("fas", "cloud-download-alt")
+          %span.download-item= @photo.downloads
+      %hr.photo-line-2.hidden-md.hidden-sm
+    .col-md-6.col-sm-6.col-xs-12.visible-md-block.visible-sm-block.visible-xs-block
+      .change-photo
+        - if user_signed_in?
+          .a
+            .a-1
+              - if policy(@photo).edit?
+                = link_to 'Редактировать', edit_photo_path(@photo)
+            .a-2
+              - if policy(@photo).destroy?
+                = link_to 'Удалить', @photo, method: :delete, data: { confirm: 'Вы уверены?' }
+    .col-md-12.col-sm-12.col-xs-12.visible-md-block.visible-sm-block.visible-xs-block.hidden-lg
+      %hr.photo-line-2
+      .cc0-mobile-hide
+        %h4.c
+          CC0 Creative Commons
+        %p.c
+          Бесплатно для коммерческого
+          %br/
+          использования
+          %br/
+          Указание авторства не требуется
+        %a#download-count{"data-photo-id" => @photo.id, :download => "", :href => @photo.image}
+          %span.download-margin-right= icon("fas", "cloud-download-alt")
+          \Бесплатная загрузка
+      .change-photo.hidden-md.hidden-sm.hidden-xs
+        - if user_signed_in?
+          .a
+            .a-1
+              - if policy(@photo).edit?
+                = link_to 'Редактировать', edit_photo_path(@photo)
+            .a-2
+              - if policy(@photo).destroy?
+                = link_to 'Удалить', @photo, method: :delete, data: { confirm: 'Вы уверены?' }
+      #social-modal
+        .social-wrapper
+          %span.close-modal= icon("fas", "times 1x")
+          = social_share_button_tag(@photo.image)
 
-.row
-  - if user_signed_in?
-    .col-md-6
-      %textarea.form-control#photos_comment_body
-      %input#photo_id{ value: @photo.id, hidden: true }
-      %input#author_id{ value: current_user.id, hidden: true }
-      %input#author_email{ value: current_user.email, hidden: true }
-      %input#author_avatar{ value: current_user.avatar, hidden: true }
-      %button.btn.btn-my.mt-10.create_photos_comment= 'Добавить комментарий'
-  - else
-    .col-md-6
-      %p
-        ='Чтобы оставлять комментарии'
-        %a= link_to 'Войдите', new_user_session_path
-        ='либо'
-        %a= link_to 'Зарегистрируйтесь', new_user_registration_path
-.row
-  .list-group.photos_comments
-    %a.list-group-item.active
-      = 'Комментарии:'
-    - if @photo.photos_comments.any?
-      - @photo.photos_comments.each do |photos_comment|
-        %a.list-group-item
+  .row
+    .col-lg-8.desctop-tag.hidden-md.hidden-sm.hidden-xs
+      - @photo.tags.each do |tag|
+        %span.tag= tag.tag
+      %hr.comment-line
+  .row
+    .col-lg-8.col-md-12.col-sm-12.col-xs-12
+      .photos_comments
+        - if @photo.photos_comments.any?
+          - @photo.photos_comments.each do |photos_comment|
+            .comment-body
+              .photos_comment_author
+                - if photos_comment.user.avatar?
+                  =image_tag(photos_comment.user.avatar.thumb.url, class: 'img-circle')
+              .photos_comment-text
+                %span
+                  = photos_comment.user.name
+                  = photos_comment.user.surname
+                %span.photos_comment-date
+                  = I18n.l(photos_comment.created_at, format: :short)
+                %textarea.custom-textarea.photos_body_edit
+                %pre.photos_comment_body.inline.pre-custom{ id: "photos_comment_body_#{photos_comment.id}"}= photos_comment.body
+                %input.photos_comment_id{ value: photos_comment.id, hidden: true }
+                - if user_signed_in?
+                  - if policy(photos_comment).destroy?
+                    %button.btn.btn-default.delete_photos_comment.glyphicon.glyphicon-trash.icon.red.float-right
+                  - if policy(photos_comment).edit?
+                    %button.btn.btn-default.edit_photos_comment.glyphicon.glyphicon-pencil.icon.float-right
+        - else
+          %h4.no-comment= 'Ещё никто не оставил комментарий. Будьте первым!'
+  .row
+    - if user_signed_in?
+      .col-lg-8.col-md-12.col-sm-12
+        .comment-body
           .photos_comment_author
-            - if photos_comment.user.avatar?
-              =image_tag(photos_comment.user.avatar.thumb.url, class: 'img-circle')
-            - else
-              =image_tag(photos_comment.user.avatar/thumb.url, class: 'img-circle', size: 50)
-            %span
-              = photos_comment.user.name
-              = photos_comment.user.surname
-            %span.photos_comment-date
-              = I18n.l(photos_comment.created_at, format: :short)
-          %textarea.photos_body_edit{hidden: true}
-          %pre.photos_comment_body.inline{ id: "photos_comment_body_#{photos_comment.id}"}= photos_comment.body
-          %input.photos_comment_id{ value: photos_comment.id, hidden: true }
-          - if policy(photos_comment).destroy?
-            %button.btn.btn-default.delete_photos_comment.glyphicon.glyphicon-trash.icon.red.float-right
-          - if policy(photos_comment).edit?
-            %button.btn.btn-default.edit_photos_comment.glyphicon.glyphicon-pencil.icon.float-right
+            - if current_user.avatar?
+              =image_tag(current_user.avatar.thumb.url, class: 'img-circle')
+          .photos_comment-text
+            %textarea.form-control#photos_comment_body{placeholder: "Ваш комментарий"}
+            %input#photo_id{ value: @photo.id, hidden: true }
+            %input#author_id{ value: current_user.id, hidden: true }
+            %input#author_email{ value: "#{current_user.name} #{current_user.surname}", hidden: true }
+            %input#author_avatar{ value: current_user.avatar.thumb.url, hidden: true }
+            %button.btn.btn-my.mt-10.create_photos_comment= 'Добавить комментарий'
     - else
-      %h4.no-comment= 'Ещё никто не оставил комментарий. Будьте первым!'
-
-- if policy(@photo).edit?
-  = link_to 'Редактировать', edit_photo_path(@photo) |
-- if policy(@photo).destroy?
-  = link_to 'Удалить', @photo, method: :delete, data: { confirm: 'Вы уверены?' }
-= link_to 'Назад', photos_path
+      .col-lg-8.col-md-8.col-sm-8
+        %p
+          ='Чтобы оставлять комментарии'
+          %a= link_to 'Войдите', new_user_session_path
+          ='либо'
+          %a= link_to 'Зарегистрируйтесь', new_user_registration_path
+  = link_to 'Назад', photos_path
