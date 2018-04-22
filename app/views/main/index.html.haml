@@ -1,16 +1,99 @@
-%h1 Main
-= form_tag(search_path, method: :get) do
-  = text_field_tag :term, params[:term]
-  = submit_tag 'Search', name: nil
-%h1 Последние фотографии
+.main-image
+  .container.main-text-container
+    .row
+      .col-lg-8.col-lg-offset-2
+        %h1.title Найди своё вдохновение.
+        %p.desc
+          Бесплатный фотобанк лицензионных фотографий
+          %br/
+          высокого качества.
+        = form_tag(search_path, method: :get, class: 'search-form') do
+          = text_field_tag :term, params[:term], class: 'search-input'
+          = submit_tag '', name: nil, class: 'search-icon'
+
 #photos
-  - @photos.each do |photo|
-    .photo
-      = link_to(image_tag(photo.image.thumb.url, alt: 'Фотография'), photo, target: '_blank') if photo.image?
-%h1 Последние посты
-- @posts.each do |post|
-  .post
-    = post.title
-    = link_to(image_tag(post.photo.small_thumb.url, alt: 'Фотография'), post, target: '_blank') if post.photo?
-    = post.description
-    = link_to 'Читать', post
+  .container
+    .row
+      .col-lg-12.col-md-12.col-sm-12.col-xs-12
+        %h2.custom-h2 Недавно добавленные фотографии
+    .row
+      - @photos.each do |photo|
+        .col-lg-4.col-md-6.col-sm-6.col-xs-12.mobile-full-width
+          .photo
+            - if photo.image?
+              = link_to photo, target: '_blank' do
+                = image_tag(photo.image.thumb.url, alt: 'Фотография', class: 'photo-image')
+              .photo-hover
+                = link_to photo.user do
+                  - if photo.user.avatar?
+                    = image_tag(photo.user.avatar.thumb.url, alt: "#{photo.user.name} #{photo.user.surname}", class: 'img-circle user-avatar')
+                  %span.photo-user-name
+                    = "#{photo.user.name} #{photo.user.surname}"
+                %span.photo-info-counters
+                  = photo.photos_comments.size
+    .row
+      .col-lg-2.col-lg-offset-5.col-md-3.col-md-offset-5.col-sm-3.col-sm-offset-5.col-xs-6.col-xs-offset-3
+        = link_to photos_path, class: 'see-more' do
+          Увидеть больше
+          %span.btn__bg
+            %span Увидеть больше
+
+#links
+  .container
+    .row.flex-row
+      .col-lg-6.col-md-6.col-sm-6.hidden-xs
+        = link_to collections_path do
+          .full-link-image
+            = image_tag('section-1.jpg', alt: 'Картинка секции')
+            .full-link-image-wrapper
+              .full-link-image-text
+                %h3.link-image-title Подборки для вдохновения
+                %p.link-image-text Какой-то текст
+                = image_tag('ellips.png', alt: 'Стрелочка', class: 'ellips')
+      .col-lg-6.col-md-6.col-sm-6.col-xs-12.flex-column
+        = link_to collections_path, class: 'hidden-lg hidden-md hidden-sm' do
+          .half-link-image
+            = image_tag('mobile_photos.png', alt: 'Картинка секции')
+            .half-link-image-wrapper
+            .half-link-image-text-wrapper
+              .half-link-image-text
+                %h3.link-image-title Подборки для вдохновения
+                %p.link-image-text Какой-то текст
+                = image_tag('ellips.png', alt: 'Стрелочка', class: 'ellips')
+        = link_to photos_path do
+          .half-link-image
+            = image_tag('section-2.jpg', alt: 'Картинка секции')
+            .half-link-image-wrapper
+            .half-link-image-text-wrapper
+              .half-link-image-text
+                %h3.link-image-title Бесплатные фотографии
+                %p.link-image-text Какой-то текст
+                = image_tag('ellips.png', alt: 'Стрелочка', class: 'ellips')
+        - if user_signed_in?
+          - profile = new_photo_path
+        - else
+          - profile = new_user_registration_path
+        = link_to profile do
+          .half-link-image
+            = image_tag('section-3.jpg', alt: 'Картинка секции')
+            .half-link-image-wrapper
+            .half-link-image-text-wrapper
+              .half-link-image-text
+                %h3.link-image-title Загрузи свои фотографии
+                %p.link-image-text Какой-то текст
+                = image_tag('ellips.png', alt: 'Стрелочка', class: 'ellips')
+
+#posts
+  .container
+    .row
+      .col-lg-12
+        %h2.custom-h2 Блог
+    .row#post-slider
+      - @posts.each do |post|
+        .col-lg-4.col-md-6.col-sm-6.col-xs-10.post-item
+          .post
+            - if post.photo?
+              = link_to post, target: '_blank', class: 'post-link' do
+                = image_tag(post.photo.small_thumb.url, alt: 'Фотография', class: 'post-image')
+                %h3.post-title= post.title
+                %p.post-description= post.description

@@ -1,14 +1,43 @@
+@font-face {
+  font-family: 'Roboto Slab';
+  src:font-url('RobotoSlab-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Roboto Regular';
+  src:font-url('Roboto-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Roboto Medium';
+  src:font-url('Roboto-Medium.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Roboto Light';
+  src:font-url('Roboto-Light.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
 body {
   background-color: #fff;
   color: #333;
-  font-family: verdana, arial, helvetica, sans-serif;
+  font-family: "Roboto Regular";
   font-size: 13px;
   line-height: 18px;
   margin: 33px;
+  padding: 0;
 }
 
 p, ol, ul, td {
-  font-family: verdana, arial, helvetica, sans-serif;
+  font-family: "Roboto Regular";
   font-size: 13px;
   line-height: 18px;
   margin: 33px;
@@ -28,8 +57,9 @@ a {
   }
 
   &:hover {
-    color: #fff;
-    background-color: #000;
+    //color: #fff;
+    //background-color: #000;
+    text-decoration: none;
   }
 }
 

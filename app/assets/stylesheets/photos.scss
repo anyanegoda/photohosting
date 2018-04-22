@@ -1,18 +1,6 @@
 // Place all the styles related to the Photos controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
-html::-webkit-scrollbar {
-    width: 20px;
-}
-
-html::-webkit-scrollbar-track {
-    -webkit-box-shadow: inset 0 0 6px #1f74fb;
-    border-left: solid 10px transparent;
-}
-
-html::-webkit-scrollbar-thumb {
-  background: linear-gradient(to right, transparent 0%, transparent 50%, #1f74fb 50%, #1f74fb 100%);
-}
 
 #photos {
   display: flex;
@@ -26,8 +14,8 @@ button:focus{
 }
 
 .photo {
-  width: 30%;
-  padding-left: 20px;
+  margin-bottom: 30px;
+  position: relative;
 }
 
 .btn-sort-active {
@@ -37,6 +25,7 @@ button:focus{
 .btn-sort-items{
   display: none;
 }
+
 
 #new-collection-modal{
   z-index: -999;
@@ -243,6 +232,101 @@ button:focus{
   transform: translateX(-50%);
 }
 
+.user-avatar{
+  max-width: 30px;
+  max-height: 30px;
+  margin-right: 15px;
+}
+
+.photo-hover{
+  display: flex;
+  padding: 10px;
+  justify-content: space-between;
+  align-items: center;
+  z-index: -1;
+  background: url('gradient.png') no-repeat;
+  background-size: cover;
+  opacity: 0;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  -webkit-transition: z-index 0.5s step-end, opacity 0.5s linear;
+  transition: z-index 0.5s step-end, opacity 0.5s linear;
+  color: #fff;
+  a{
+    text-decoration: none;
+    color: #fff;
+    font-family: 'Roboto Light';
+    &:hover{
+      color: #fff;
+      text-decoration: none;
+    }
+    &:visited{
+      color: white;
+      text-decoration: none;
+    }
+  }
+}
+
+.see-more{
+  opacity: 1;
+  transition: opacity .4s;
+    transition-timing-function: cubic-bezier(.42,0,.58,1);
+    color: #1f74fb;
+    background-color: transparent;
+    border-color: transparent;
+    display: inline-block;
+  vertical-align: top;
+  text-align: left;
+  padding: 17px 15px 15px;
+  line-height: 18px;
+  overflow: hidden;
+    max-width: 100%;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  border-radius: 0;
+  position: relative;
+  font-size: 14px;
+  text-transform: uppercase;
+  font-family: "Roboto Regular";
+  &:hover{
+    text-decoration: none;
+  }
+  .btn__bg{
+    width: 43px;
+    transition: width .4s;
+    transition-timing-function: cubic-bezier(.42,0,.58,1);
+    position: absolute;
+    overflow: hidden;
+    background: #1f74fb;
+    color: #fff;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    display: inline-block;
+    span{
+      padding: 17px 15px 15px;
+      display: inline-block;
+    }
+  }
+}
+
+.see-more:hover .btn__bg{
+  width: 100%;
+}
+
+.photo-image{
+  width: 100%;
+}
+
+.photo:hover .photo-hover{
+  z-index: 2;
+  opacity: 1;
+  -webkit-transition: z-index 0.5s step-start, opacity 0.5s linear;
+  transition: z-index 0.5s step-start, opacity 0.5s linear;
+}
+
 @media only screen and (max-width: 1400px){
   .collection-container{
     height: 73%;
@@ -274,5 +358,8 @@ button:focus{
   }
   .alert{
     width: 75%;
+  }
+  .photo{
+    margin-bottom: 20px;
   }
 }
