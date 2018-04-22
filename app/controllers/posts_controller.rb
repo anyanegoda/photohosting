@@ -29,7 +29,6 @@ class PostsController < ApplicationController
   # POST /posts.json
   def create
     @post = Post.new(post_params)
-    @post.user = current_user
     authorize @post
 
     respond_to do |format|

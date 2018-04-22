@@ -1,3 +1,40 @@
 // Place all the styles related to the Posts controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+#posts{
+  margin-bottom: 100px;
+}
+
+.post-title{
+  font-size: 1.6em;
+  line-height: 1.7em;
+  font-family: "Roboto Medium";
+  margin: 40px 0 35px;
+  color: #080808;
+}
+
+.post-image{
+  width: 100%;
+  border-radius: 5px;
+}
+
+.post-description{
+  font-size: 1.1em;
+  line-height: 1.3em;
+  color: #6d6d6d;
+  margin-bottom: 0;
+}
+
+.post-link:hover{
+  text-decoration: none;
+}
+
+@media only screen and (max-width: 1024px){
+  .post-title{
+    line-height: 1.1em;
+    margin: 20px 0 15px;
+  }
+  .post-description{
+    line-height: 1.2em;
+  }
+}
