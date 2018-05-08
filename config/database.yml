@@ -85,3 +85,4 @@ production:
   database: photohosting_production
   username: photohosting
   password: <%= ENV['BLOG_DATABASE_PASSWORD'] %>
+  url: <%= ENV['DATABASE_URL'] %>
