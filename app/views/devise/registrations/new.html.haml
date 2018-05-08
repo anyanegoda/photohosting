@@ -24,7 +24,7 @@
         .field
           = f.label :Пароль
           - if @minimum_password_length
-            %span (минимум #{@minimum_password_length} символов)
+            %span.m-char (минимум #{@minimum_password_length} символов)
           %br/
           = f.password_field :password, autocomplete: "off", class: "input-custom"
         .field
