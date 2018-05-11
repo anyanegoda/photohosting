@@ -1,0 +1,21 @@
+<br>
+<% @users.each do |user| %>
+  <%= image_tag(user.avatar.thumb.url, alt: 'Аватар') if user.avatar? %>
+  <%= link_to(user.name, user) %>
+  <%= link_to(user.surname, user) %>
+  <%= user.photos.count %> фото
+  <% user.photos.each do |photo| %>
+    <%= link_to(image_tag(photo.image.small_user_thumb.url, alt: 'Фотография'), photo, target: '_blank') if photo.image? %>
+  <% end %>
+  <br>
+  <% if policy(user).destroy? %>
+    <%= link_to 'Удалить', user, method: :delete, data: { confirm: 'Вы уверены?' } %>
+  <% end %>
+  <% if policy(user).edit? %>
+    <%= link_to 'Редактировать',  edit_user_registration_path(@user) %> |
+  <% end %>
+<% end %>
+-
+
+<br>
+<%= link_to "Ваш профиль", current_user %>
